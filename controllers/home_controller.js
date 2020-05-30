@@ -1,4 +1,8 @@
 module.exports.home=function(req, res)
 {
-    return res.end('<h1>express is up</h1>');
+    var options=
+    {
+        title:"ComSpace Express"
+    };
+    return res.render('home', options);
 };

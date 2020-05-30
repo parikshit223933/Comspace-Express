@@ -2,10 +2,9 @@ const express=require('express');
 const app=express();
 const port=8000;
 const routes=require('./routes/entry_point_router');
-const path=require('path');
 
 app.set('case sensitive routing', false);
-app.set('views', '/views');
+app.set('views', './views');
 app.set('view engine', 'ejs');
 
 app.use('/', routes);
