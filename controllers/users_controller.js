@@ -1,4 +1,4 @@
-module.exports.users=(req, res)=>
+module.exports.profile=(req, res)=>
 {
-    return res.end('<h1>this is the users controller</h1>')
+    return res.end('<h1>this is the users profile</h1>')
 }

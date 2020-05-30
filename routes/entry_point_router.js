@@ -1,10 +1,10 @@
 const express=require('express');
 const router=express.Router();
+const users_router=require('./users');
 const home_controller=require('../controllers/home_controller');
-const users_controller=require('../controllers/users_controller');
 
 router.get('/', home_controller.home);
-router.get('/users', users_controller.users)
+router.use('/users', users_router);
 
 
 module.exports=router;
