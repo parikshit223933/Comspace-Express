@@ -1,8 +1,10 @@
 const express=require('express');
 const app=express();
 const port=8000;
+const routes=require('./routes/entry_point_router');
 const path=require('path');
 
+app.use('/', routes);
 
 
 app.listen(port, (error)=>
