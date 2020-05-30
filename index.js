@@ -4,6 +4,10 @@ const port=8000;
 const routes=require('./routes/entry_point_router');
 const path=require('path');
 
+app.set('case sensitive routing', false);
+app.set('views', '/views');
+app.set('view engine', 'ejs');
+
 app.use('/', routes);
 /* currently available routes are as follows:
 1. '/'

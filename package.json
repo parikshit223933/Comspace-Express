@@ -4,7 +4,7 @@
   "description": "Comspace Express is a Social media Web Application.",
   "main": "index.js",
   "scripts": {
-    "start":"nodemon index.js",
+    "start": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
@@ -13,6 +13,7 @@
   "author": "Parikshit Singh",
   "license": "ISC",
   "dependencies": {
+    "ejs": "^3.1.3",
     "express": "^4.17.1"
   }
 }
