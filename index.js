@@ -6,8 +6,10 @@ const expressLayouts=require('express-ejs-layouts');
 
 app.use(expressLayouts);
 app.use('/', routes);
-app.use(express.static('./assets'))
+app.use(express.static('./assets'));
 
+app.set('layout extractStyles', true);
+app.set('layout extractScripts', true);
 app.set('case sensitive routing', false);
 app.set('views', './views');
 app.set('view engine', 'ejs');
