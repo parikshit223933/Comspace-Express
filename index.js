@@ -4,12 +4,13 @@ const port=8000;
 const routes=require('./routes/entry_point_router');
 const expressLayouts=require('express-ejs-layouts');
 
+app.use(expressLayouts);
+app.use('/', routes);
+app.use(express.static('./assets'))
+
 app.set('case sensitive routing', false);
 app.set('views', './views');
 app.set('view engine', 'ejs');
-
-app.use(expressLayouts);
-app.use('/', routes);
 
 app.listen(port, (error)=>
 {
