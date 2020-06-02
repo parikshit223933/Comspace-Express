@@ -8,10 +8,6 @@ app.set('views', './views');
 app.set('view engine', 'ejs');
 
 app.use('/', routes);
-/* currently available routes are as follows:
-1. '/'
-2. 'users/profile'
-*/
 
 app.listen(port, (error)=>
 {
