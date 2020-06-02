@@ -3,6 +3,7 @@ const app=express();
 const port=8000;
 const routes=require('./routes/entry_point_router');
 const expressLayouts=require('express-ejs-layouts');
+const db=require('./config/mongoose')
 
 app.use(expressLayouts);
 app.use('/', routes);
