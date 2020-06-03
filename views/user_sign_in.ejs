@@ -1,1 +1,17 @@
-<h1>User Sign_in</h1>
+<h1>Sign In</h1>
+<div class="row align-items-center">
+    <div class="col-sm-8 offset-sm-2">
+        <form action="/users/create-session" method="POST">
+            <div class="form-group">
+                <label for="InputEmail">Email</label>
+                <input type="email" class="form-control" id="InputEmail" aria-describedby="emailHelp"
+                    placeholder="abc@xyz.com" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="InputPassword">Password</label>
+                <input type="password" class="form-control" id="InputPassword" required name="password">
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+</div>

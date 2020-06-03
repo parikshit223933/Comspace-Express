@@ -26,3 +26,13 @@ module.exports.signIn=(req, res)=>
     }
     return res.render('user_sign_in', options);
 }
+
+module.exports.create=(req, res)=>
+{
+    //to do later
+}
+
+module.exports.create_session=(req, res)=>
+{
+    //to do later
+}
