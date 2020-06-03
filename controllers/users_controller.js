@@ -3,12 +3,32 @@ const User = require('../models/user');
 /* USER PROFILE */
 module.exports.profile = (req, res) =>
 {
-    var options =
+    if (req.cookies.user_id)
     {
-        user_name: "parikshit singh",
-        title: "ComSpace Express",
+        User.findById(req.cookies.user_id, (error, user) =>
+        {
+            if (error)
+            {
+                console.log('Cannot find the user with id provided by the cookie!')
+            }
+            if (user)
+            {
+                var options =
+                {
+                    user: user,
+                    title: "ComSpace Express",
+                }
+                return res.render('users_profile', options);
+            }
+            return res.redirect('users/sign-in');
+        })
     }
-    return res.render('users_profile', options);
+    else
+    {
+        return res.redirect('/users/sign-in');
+    }
+
+
 }
 
 /* USER SIGNUP */
@@ -73,17 +93,17 @@ module.exports.create_session = (req, res) =>
     //handle user-not-found
 
 
-    User.findOne({email:req.body.email}, (error, user)=>
+    User.findOne({ email: req.body.email }, (error, user) =>
     {
-        if(error)
+        if (error)
         {
             console.log('Error in finding the user in signing in!');
             return;
         }
-        if(user)
+        if (user)
         {
             //if user is found and password does not match
-            if(user.password!=req.body.password)
+            if (user.password != req.body.password)
             {
                 return Response.redirect('back');
             }
