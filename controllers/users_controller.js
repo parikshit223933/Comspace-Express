@@ -43,10 +43,35 @@ module.exports.signUp = (req, res) =>
 /* USER SIGNIN */
 module.exports.signIn = (req, res) =>
 {
-    var options = {
-        title: "ComSpace Express | Sign In"
+    if (req.cookies.user_id)
+    {
+        User.findById(req.cookies.user_id, (error, user)=>
+        {
+            if(error)
+            {
+                console.log('user_id cookie found on sign-in page but there was some error in matching it with the database!');
+                clearCookie('user_id');
+                return;
+            }
+            if(user)
+            {
+                return res.redirect('/users/profile');
+            }
+            else
+            {
+                res.clearCookie('user_id');
+                return Response.redirect('back');
+            }
+        })
     }
-    return res.render('user_sign_in', options);
+    else
+    {
+        var options = {
+            title: "ComSpace Express | Sign In"
+        }
+        return res.render('user_sign_in', options);
+    }
+
 }
 
 /* when we are calling this create function, we are supposing that currently we are on the sign up page. on which we actually are */
@@ -120,7 +145,7 @@ module.exports.create_session = (req, res) =>
 
 }
 
-module.exports.sign_out=(req, res)=>
+module.exports.sign_out = (req, res) =>
 {
     res.clearCookie('user_id');
     return res.redirect('/users/sign-in');
