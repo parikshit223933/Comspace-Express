@@ -109,6 +109,7 @@ module.exports.create = (req, res) =>
     });
 }
 
+/* currently on the sign in page */
 module.exports.create_session = (req, res) =>
 {
     //find the user
@@ -130,7 +131,7 @@ module.exports.create_session = (req, res) =>
             //if user is found and password does not match
             if (user.password != req.body.password)
             {
-                return Response.redirect('back');
+                return res.redirect('back');
             }
             // if the user is found and the password matches
             res.cookie('user_id', user.id);
