@@ -14,6 +14,10 @@ module.exports.profile = (req, res) =>
 /* USER SIGNUP */
 module.exports.signUp = (req, res) =>
 {
+    if(req.isAuthenticated())
+    {
+        return res.redirect('/users/profile');
+    }
     var options = {
         title: "ComSpace Express | Sign Up"
     }
@@ -23,6 +27,10 @@ module.exports.signUp = (req, res) =>
 /* USER SIGNIN */
 module.exports.signIn = (req, res) =>
 {
+    if(req.isAuthenticated())
+    {
+        return res.redirect('/users/profile');
+    }
     var options = {
         title: "ComSpace Express | Sign In"
     }
