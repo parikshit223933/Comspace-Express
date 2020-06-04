@@ -4,7 +4,28 @@ const app=express();
 const port=8000;
 const routes=require('./routes/entry_point_router');
 const expressLayouts=require('express-ejs-layouts');
-const db=require('./config/mongoose')
+const db=require('./config/mongoose');
+/* used for session cookie */
+const session=require('express-session');
+const passport=require('passport');
+const passportLocal=require('./config/passport-local-strategy');
+
+/* for creating and initializing a session */
+app.use(session(
+    {
+        name:'comspace_express',
+        /* ToDo: Change the secret before deployment in production mode. */
+        /* whenever encryption happens, there is a key to encode and decode it that key is secret. */
+        secret:'somethingsomething',
+        saveUninitialized:false,
+        resave:false,
+        cookie:{
+            maxAge:(1000*60*100)
+        }
+    }
+));
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use(express.urlencoded({extended:true}));
 app.use(cookieParser());
@@ -17,6 +38,8 @@ app.set('layout extractScripts', true);
 app.set('case sensitive routing', false);
 app.set('views', './views');
 app.set('view engine', 'ejs');
+
+
 
 app.listen(port, (error)=>
 {

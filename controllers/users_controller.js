@@ -66,5 +66,5 @@ module.exports.create = (req, res) =>
 
 module.exports.create_session = (req, res) =>
 {
-    //to do later
+    return res.redirect('/');
 }
