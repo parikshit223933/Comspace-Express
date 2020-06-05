@@ -3,7 +3,7 @@
 }
 
 .navbar-brand {
-  background: -webkit-linear-gradient(0deg, #7700ff -50%, #04ffff 150%);
+  background: -webkit-linear-gradient(0deg, #7700ff 0%, #ff0066 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
