@@ -1,8 +1,8 @@
 // best in chrome
 $total: 300; // total particles
-$orb-size: 370px;
-$particle-size: 15px;
-$time: 15s;
+$orb-size: 550px;
+$particle-size: 20px;
+$time: 60s;
 $base-hue: 0; // change for diff colors (180 is nice)
 
 .section-one {
@@ -30,7 +30,9 @@ $base-hue: 0; // change for diff colors (180 is nice)
 .section-two
 {
     background-color: rgba(255, 255, 255, 0.8);
-    margin-top:3%;
+	margin-top:3%;
+	color:black !important;
+	font-weight:bold;
 }
 
 h1.text-center
