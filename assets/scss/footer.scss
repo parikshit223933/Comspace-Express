@@ -1,0 +1,26 @@
+footer {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	justify-content: flex-start;
+	align-items: center;
+    background-color: rgb(0, 0, 0);
+    padding:50px 20px;
+	div:nth-child(1) {
+        height:10vw;
+        width:26.71vw;
+		img {
+            height:100%;
+            width:100%;
+		}
+    }
+    div:nth-child(2)
+    {
+        height:100%;
+        width:60%;
+    }
+    a:hover
+    {
+        text-decoration:none !important;
+    }
+}
