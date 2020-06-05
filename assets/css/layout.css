@@ -1,7 +1,11 @@
 body {
   height: 100vh;
+  margin: 0px;
+  padding: 0px;
 }
 
 body #layout-main {
-  height: 100%;
+  height: 100vh;
+  width: 100%;
+  display: inline-block;
 }
