@@ -1,20 +1,30 @@
 <header>
-    Page Header
-    <ul>
-        <% if(locals.user){ %>
-        <li>
-            <a href="/users/profile">
-                <%= locals.user.name %>
-            </a>
-        </li>
-        <li> <a href="/users/sign-out">Sign Out</a> </li>
-        <%}else{%>
-        <li>
-            <a href="/users/sign-in">Sign In</a>
-        </li>
-        <li>
-            <a href="/users/sign-up">Sign Up</a>
-        </li>
-        <% }%>
-    </ul>
+    <nav class="navbar navbar-expand-lg navbar-light bg-dark">
+        <a class="navbar-brand text-light" href="/">ComSpace Express</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+            <form class="form-inline my-2 my-lg-0 mr-auto">
+                <input class="form-control mr-sm-2 search-bar" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
+            </form>
+
+            <ul class="navbar-nav ml-auto">
+                <% if(locals.user){ %>
+                <li class="nav-item"><a href="/users/profile" class="nav-link"><%= locals.user.name %></a></li>
+                <li class="nav-item"> <a href="/users/sign-out" type="button" class="btn btn-danger">Sign Out</a> </li>
+                <%}else{%>
+                <li class="nav-item"><a href="/users/sign-in" type="button"
+                        class="btn btn-success mr-lg-2 ml-lg-2 mt-lg-0 mb-lg-0 mt-sm-2 mb-sm-2">Sign In</a></li>
+                <li class="nav-item"><a href="/users/sign-up" type="button" class="btn btn-light">Sign Up</a></li>
+                <% }%>
+
+            </ul>
+
+        </div>
+    </nav>
 </header>
