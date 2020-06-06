@@ -4,7 +4,7 @@ const comment_schema=new mongoose.Schema(
     {
         content:
         {
-            type=String,
+            type:String,
             required:true,
         },
         user:
