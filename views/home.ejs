@@ -1,5 +1,5 @@
 <section id="feed-posts" class="col-sm-6 offset-sm-3 mt-4">
-
+    <%if(locals.user){%>
     <form action="/posts/create" id="new-post-form" method="POST">
         <div class="form-group mb-1">
             <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" cols=1 name="content"
@@ -9,10 +9,10 @@
             <button type="submit" class="btn btn-primary mb-2 float-right">Post</button>
         </div>
     </form>
-
+    <%}%>
     <div id="posts-container">
         <%for(let post of locals.posts){%>
-        <div class="card w-100 mt-2">
+        <div class="card w-100 mt-2 mb-2">
             <div class="card-body">
                 <h5 class="card-title"><%=post.user.name%></h5>
                 <p class="card-text"><%=post.content%></p>
