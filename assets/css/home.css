@@ -1,0 +1,7 @@
+.card-body a {
+  font-size: 20px;
+}
+
+.card-body a:hover {
+  color: red;
+}

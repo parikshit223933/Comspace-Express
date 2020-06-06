@@ -1,0 +1,11 @@
+.card-body
+{
+    a
+    {
+        font-size:20px;
+        &:hover
+        {
+            color:red;
+        }
+    }
+}

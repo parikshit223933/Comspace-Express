@@ -11,16 +11,32 @@
     </form>
     <%}%>
     <div id="posts-container">
-        <%for(let post of locals.posts){%>
-        <div class="card w-100 mt-2 mb-2">
-            <div class="card-body">
-                <h5 class="card-title"><%=post.user.name%></h5>
-                <p class="card-text"><%=post.content%></p>
-                <a href="#" class="btn btn-primary">Like Button</a>
-                <div class="card-text w-100 mt-2"><%=post.user.updatedAt.toString().substr(0, 15)%></div>
-            </div>
+        <% let itr=0; for(let post of locals.posts){ %>
+    <div class="card w-100 mt-2 mb-2">
+        <div class="card-body">
+            <h5 class="card-title"><%=post.user.name%></h5>
+            <p class="card-text"><%=post.content%></p>
+            <div class="card-text mt-2"><small><%=post.user.updatedAt.toString().substr(0, 15)%></small></div>
+            <hr>
+            <a href=""><i class="far fa-heart"></i></a>&nbsp&nbsp&nbsp
+            <a data-toggle="collapse" href="#collapse<%=itr%>" role="button" aria-expanded="false"
+                aria-controls="collapse<%=itr%>"><i class="far fa-comment"></i></a>&nbsp&nbsp&nbsp
+            <a href=""><i class="fas fa-paper-plane"></i></a>
         </div>
-        <%}%>
+        <div class="collapse post-comments mr-2 ml-2" id="collapse<%=itr%>">
+            <%if(locals.user){%>
+            <form action="/comments/create" method="POST">
+                <input type="text" class="form-control" placeholder="Add a new Comment..." aria-label="Username"
+                    aria-describedby="basic-addon1" name="content">
+                <input type="hidden" name="post" value="<%=post._id%>">
+                <button type="submit" class="btn btn-primary btn-sm mt-2 mb-2 mr-2">Add Comment</button>
+            </form>
+            <%}else{%>
+            <p>Please Log In to see Comments!</p>
+            <%}%>
+        </div>
     </div>
+    <%itr++;}%>
+        </div>
 
 </section>
