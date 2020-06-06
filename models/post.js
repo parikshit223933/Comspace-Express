@@ -11,7 +11,15 @@ const post_schema=new mongoose.Schema(
             type:mongoose.Schema.Types.ObjectId,
             /* refer to which model? */
             ref:'User'
-        }
+        },
+        // include the array of all the comment ids in this post schema to load all the comments of a post quickly.
+        comments:
+        [
+            {
+                type:mongoose.Schema.Types.ObjectId,
+                ref:'Comment'
+            }
+        ]
     },
     {
         timestamps:true
