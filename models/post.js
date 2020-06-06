@@ -9,7 +9,7 @@ const post_schema=new mongoose.Schema(
         user:
         {
             type:mongoose.Schema.Types.ObjectId,
-            /* refer to which schema? */
+            /* refer to which model? */
             ref:'User'
         }
     },
