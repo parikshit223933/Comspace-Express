@@ -1,8 +1,7 @@
-
 <section id="feed-posts" class="col-sm-6 offset-sm-3 mt-4">
 
     <form action="/posts/create" id="new-post-form" method="POST">
-        <div class="form-group">
+        <div class="form-group mb-1">
             <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" cols=1 name="content"
                 placeholder="What's on your mind?"></textarea>
         </div>
@@ -15,9 +14,10 @@
         <%for(let post of locals.posts){%>
         <div class="card w-100 mt-2">
             <div class="card-body">
-                <h5 class="card-title">User Name</h5>
+                <h5 class="card-title"><%=post.user.name%></h5>
                 <p class="card-text"><%=post.content%></p>
                 <a href="#" class="btn btn-primary">Like Button</a>
+                <div class="card-text w-100 mt-2"><%=post.user.updatedAt.toString().substr(0, 15)%></div>
             </div>
         </div>
         <%}%>
