@@ -5,3 +5,7 @@
 .card-body a:hover {
   color: red;
 }
+
+.card {
+  box-shadow: 0px 5px 10px 1px #dbdbdb;
+}

@@ -3,7 +3,7 @@
     <form action="/posts/create" id="new-post-form" method="POST">
         <div class="form-group mb-1">
             <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" cols=1 name="content"
-                placeholder="What's on your mind?"></textarea>
+                placeholder="What's on your mind?" required></textarea>
         </div>
         <div class="form-group">
             <button type="submit" class="btn btn-primary mb-2 float-right">Post</button>
@@ -12,7 +12,8 @@
     <%}%>
     <div id="posts-container">
         <% let itr=0; for(let post of locals.posts){ %>
-    <div class="card w-100 mt-2 mb-2">
+    <!-- for loop for comment cards -->
+    <div class="card w-100 mt-3 mb-2">
         <div class="card-body">
             <h5 class="card-title"><%=post.user.name%></h5>
             <p class="card-text"><%=post.content%></p>
@@ -27,16 +28,27 @@
             <%if(locals.user){%>
             <form action="/comments/create" method="POST">
                 <input type="text" class="form-control" placeholder="Add a new Comment..." aria-label="Username"
-                    aria-describedby="basic-addon1" name="content">
+                    aria-describedby="basic-addon1" name="content" required>
                 <input type="hidden" name="post" value="<%=post._id%>">
                 <button type="submit" class="btn btn-primary btn-sm mt-2 mb-2 mr-2">Add Comment</button>
             </form>
+            <div class="post-comments-lister-list">
+                <div id="post-comments-<%=post._id%>">
+                    <%for(let comment of post.comments){%>
+                    <b><%=comment.user.name%></b>
+                    <p>
+                        <%=comment.content%>
+                    </p>
+                    <hr>
+                    <%}%>
+                </div>
+            </div>
             <%}else{%>
-            <p>Please Log In to see Comments!</p>
-            <%}%>
+                    <p>Please Log In to see Comments!</p>
+                    <%}%>
         </div>
     </div>
     <%itr++;}%>
-        </div>
+                </div>
 
 </section>
