@@ -32,7 +32,7 @@
                 <input type="hidden" name="post" value="<%=post._id%>">
                 <button type="submit" class="btn btn-primary btn-sm mt-2 mb-2 mr-2">Add Comment</button>
             </form>
-            <div class="post-comments-lister-list">
+            <div class="post-comments-lister-list pl-4 pr-4">
                 <div id="post-comments-<%=post._id%>">
                     <%for(let comment of post.comments){%>
                     <b><%=comment.user.name%></b>
