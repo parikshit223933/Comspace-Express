@@ -1,4 +1,5 @@
 const Post = require('../models/post');
+const User = require('../models/user');
 
 module.exports.home = function (req, res)
 {
@@ -23,28 +24,45 @@ module.exports.home = function (req, res)
 
 
     Post.find({})
-    .populate('user')
-    .populate(
-        {
-            path:'comments',
-            populate:
+        .populate('user')
+        .populate(
             {
-                path:'user'
+                path: 'comments',
+                populate:
+                {
+                    path: 'user'
+                }
             }
-        }
-    ) 
-    .exec(function(err, posts)
-    {
-        if(err)
+        )
+        .exec(function (err, posts)
         {
-            console.log('Unable to fetch posts!');
-            return;
-        }
-        var options =
-        {
-            title: "ComSpace Express",
-            posts: posts
-        };
-        return res.render('home', options);
-    });
+            if (err)
+            {
+                console.log('Unable to fetch posts!');
+                return;
+            }
+
+            User.find({}, function (error, users)
+            {
+                if(error)
+                {
+                    console.log('error in finding all the users!');
+                    return;
+                }
+                var options =
+                {
+                    title: "ComSpace Express",
+                    posts: posts,
+                    all_users:users
+                };
+                return res.render('home', options);
+            })
+
+            /* var options =
+            {
+                title: "ComSpace Express",
+                posts: posts
+            };
+            return res.render('home', options); */
+        });
 };

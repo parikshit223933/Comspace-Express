@@ -1,8 +1,8 @@
 <link rel="stylesheet" href="/css/user_profiles.css">
-    <h1>This is the profile of <%=user_name%></h1>
+    <h1>This is the profile of <%=locals.profile_user.name%></h1>
 <p>
-    <%=user.name%>
+    <%=locals.profile_user.name%>
 </p>
 <p>
-    <%=user.email%>
+    <%=locals.profile_user.email%>
 </p>

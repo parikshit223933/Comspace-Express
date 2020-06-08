@@ -21,3 +21,14 @@
         </div>
 
 </section>
+
+<section id="user-friends">
+    <h4>
+        Friends
+    </h4>
+    <%for(u of locals.all_users){%>
+        <p>
+            <a href="/users/profile/<%=u.id%>"><%=u.name%></a>
+        </p>    
+    <%}%>
+</section>

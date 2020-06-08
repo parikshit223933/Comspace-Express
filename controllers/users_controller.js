@@ -3,18 +3,28 @@ const User = require('../models/user');
 /* USER PROFILE */
 module.exports.profile = (req, res) =>
 {
-    var options =
+    User.findById(req.params.id, function (error, user)
     {
-        user_name: "parikshit singh",
-        title: "ComSpace Express",
-    }
-    return res.render('users_profile', options);
+        if(error)
+        {
+            console.log('error in finding the user profile!');
+            return;
+        }
+        var options =
+        {
+            user_name: "parikshit singh",
+            title: "ComSpace Express",
+            profile_user:user
+        }
+        return res.render('users_profile', options);
+    })
+
 }
 
 /* USER SIGNUP */
 module.exports.signUp = (req, res) =>
 {
-    if(req.isAuthenticated())
+    if (req.isAuthenticated())
     {
         return res.redirect('/users/profile');
     }
@@ -27,7 +37,7 @@ module.exports.signUp = (req, res) =>
 /* USER SIGNIN */
 module.exports.signIn = (req, res) =>
 {
-    if(req.isAuthenticated())
+    if (req.isAuthenticated())
     {
         return res.redirect('/users/profile');
     }
@@ -77,7 +87,7 @@ module.exports.create_session = (req, res) =>
     return res.redirect('/');
 }
 
-module.exports.destroySession=function(req, res)
+module.exports.destroySession = function (req, res)
 {
     req.logout();
     return res.redirect('/');
