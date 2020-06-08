@@ -11,79 +11,13 @@
     </form>
     <%}%>
     <div id="posts-container">
-        <% let itr=0; for(let post of locals.posts){ %>
-    <!-- for loop for comment cards -->
-    <div class="card w-100 mt-3 mb-2">
-        <div class="card-body">
+        <% itr=0; for(post of locals.posts){ %>
+            
 
-            <!-- options to delete a post and stuff -->
-            <% if(locals.user&&locals.user.id==post.user.id){ %>
-            <div class="dropdown">
-                <a class="float-right" href="" id="more_options<%=itr%>" data-toggle="dropdown" aria-haspopup="true"
-                    aria-expanded="false">
-                    <i class="fas fa-ellipsis-h"></i>
-                </a>
-                <div class="dropdown-menu" aria-labelledby="more_options<%=itr%>">
-                    <a class="dropdown-item" href="/posts/destroy/<%=post.id%>"><i class="fas fa-trash-alt"></i>
-                        Delete</a>
-                </div>
-            </div>
-            <%}%>
+            <%- include('_post') -%>
 
 
-            <h5 class="card-title"><%=post.user.name%></h5>
-            <p class="card-text"><%=post.content%></p>
-            <div class="card-text mt-2"><small><%=post.user.updatedAt.toString().substr(0, 15)%></small></div>
-            <hr>
-            <a href=""><i class="far fa-heart"></i></a>&nbsp&nbsp&nbsp
-            <a data-toggle="collapse" href="#collapse<%=itr%>" role="button" aria-expanded="false"
-                aria-controls="collapse<%=itr%>"><i class="far fa-comment"></i></a>&nbsp&nbsp&nbsp
-            <a href=""><i class="fas fa-paper-plane"></i></a>
-        </div>
-        <div class="collapse post-comments mr-2 ml-2" id="collapse<%=itr%>">
-            <%if(locals.user){%>
-            <form action="/comments/create" method="POST">
-                <input type="text" class="form-control" placeholder="Add a new Comment..." aria-label="Username"
-                    aria-describedby="basic-addon1" name="content" required>
-                <input type="hidden" name="post" value="<%=post._id%>">
-                <button type="submit" class="btn btn-primary btn-sm mt-2 mb-2 mr-2">Add Comment</button>
-            </form>
-            <!-- comments list container -->
-            <hr>
-            <div class="post-comments-lister-list pl-4 pr-4">
-                <div id="post-comments-<%=post._id%>">
-                    <%let itr2=0;for(let comment of post.comments){%>
-
-
-                    <!-- for deleting a comment -->    
-                    <% if(locals.user&&locals.user.id==comment.user.id){ %>
-                    <div class="dropdown">
-                        <a class="float-right" href="" id="more_options<%=itr2%>" data-toggle="dropdown"
-                            aria-haspopup="true" aria-expanded="false">
-                            <i class="fas fa-ellipsis-h"></i>
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="more_options<%=itr2%>">
-                            <a class="dropdown-item" href="/comments/destroy/<%=comment.id%>"><i class="fas fa-trash-alt"></i>
-                                Delete</a>
-                        </div>
-                    </div>
-                    <%}%>
-
-
-                    <b><%=comment.user.name%></b>
-                    <p>
-                        <%=comment.content%>
-                    </p>
-                    <hr>
-                    <%itr2++;}%>
-                </div>
-            </div>
-            <%}else{%>
-                    <p>Please Log In to see Comments!</p>
-                    <%}%>
-        </div>
-    </div>
     <%itr++;}%>
-                </div>
+        </div>
 
 </section>

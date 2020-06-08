@@ -1,0 +1,21 @@
+<!-- for deleting a comment -->
+<% if(locals.user&&locals.user.id==comment.user.id){ %>
+    <div class="dropdown">
+        <a class="float-right" href="" id="more_options<%=itr2%>" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+            <i class="fas fa-ellipsis-h"></i>
+        </a>
+        <div class="dropdown-menu" aria-labelledby="more_options<%=itr2%>">
+            <a class="dropdown-item" href="/comments/destroy/<%=comment.id%>"><i
+                    class="fas fa-trash-alt"></i>
+                Delete</a>
+        </div>
+    </div>
+    <%}%>
+
+
+    <b><%=comment.user.name%></b>
+    <p>
+        <%=comment.content%>
+    </p>
+    <hr>
