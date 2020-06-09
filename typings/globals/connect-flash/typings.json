@@ -1,0 +1,8 @@
+{
+  "resolution": "main",
+  "tree": {
+    "src": "https://raw.githubusercontent.com/DefinitelyTyped/DefinitelyTyped/be3445bb83b7d40ac992f195b72ded89d9ba341e/connect-flash/index.d.ts",
+    "raw": "registry:dt/connect-flash#0.0.0+20160721174308",
+    "typings": "https://raw.githubusercontent.com/DefinitelyTyped/DefinitelyTyped/be3445bb83b7d40ac992f195b72ded89d9ba341e/connect-flash/index.d.ts"
+  }
+}
