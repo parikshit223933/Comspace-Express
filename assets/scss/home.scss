@@ -13,3 +13,34 @@
 {
     box-shadow: 0px 5px 10px 1px rgb(219, 219, 219);
 }
+.row
+{
+    section:nth-child(3)
+    {
+        a
+        {
+            &:hover
+            {
+                text-decoration: none;
+                color:red;
+            }
+        }
+        .badge
+        {
+            &:hover
+            {
+                background-color:red;
+                cursor:default;
+            }
+        }
+        ul
+        {
+            overflow:scroll;
+            max-height:75vh;
+            &::-webkit-scrollbar
+            {
+                display: none;
+            }
+        }
+    }
+}

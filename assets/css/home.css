@@ -9,3 +9,22 @@
 .card {
   box-shadow: 0px 5px 10px 1px #dbdbdb;
 }
+
+.row section:nth-child(3) a:hover {
+  text-decoration: none;
+  color: red;
+}
+
+.row section:nth-child(3) .badge:hover {
+  background-color: red;
+  cursor: default;
+}
+
+.row section:nth-child(3) ul {
+  overflow: scroll;
+  max-height: 75vh;
+}
+
+.row section:nth-child(3) ul::-webkit-scrollbar {
+  display: none;
+}

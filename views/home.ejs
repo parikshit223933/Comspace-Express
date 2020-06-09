@@ -1,34 +1,43 @@
-<section id="feed-posts" class="col-sm-6 offset-sm-3 mt-4">
-    <%if(locals.user){%>
-    <form action="/posts/create" id="new-post-form" method="POST">
-        <div class="form-group mb-1">
-            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" cols=1 name="content"
-                placeholder="What's on your mind?" required></textarea>
-        </div>
-        <div class="form-group">
-            <button type="submit" class="btn btn-primary mb-2 float-right">Post</button>
-        </div>
-    </form>
-    <%}%>
-    <div id="posts-container">
-        <% itr=0; for(post of locals.posts){ %>
-            
+<div class="container-fluid">
+    <div class="row">
+        <section class="col-sm-3 mt-4">
 
+        </section>
+        <section id="feed-posts" class="col-sm-6 mt-4">
+            <%if(locals.user){%>
+            <form action="/posts/create" id="new-post-form" method="POST">
+                <div class="form-group mb-1">
+                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" cols=1 name="content"
+                        placeholder="What's on your mind?" required></textarea>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary mb-2 float-right">Post</button>
+                </div>
+            </form>
+            <%}%>
+            <div id="posts-container">
+                <% itr=0; for(post of locals.posts){ %>
             <%- include('_post') -%>
+            <%itr++;}%>
+            </div>
 
+        </section>
 
-    <%itr++;}%>
-        </div>
+        <section id="user-friends" class="col-sm-3 mt-4 pb-3 pt-3">
+            <h4>
+                Friends
+            </h4>
 
-</section>
+            <ul class="list-group">
+                <%for(u of locals.all_users){%>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <a href="/users/profile/<%=u.id%>"><%=u.name%></a>
+                    <span class="badge badge-primary badge-pill">14</span>
+                </li>
+                <%}%>
+            </ul>
 
-<section id="user-friends">
-    <h4>
-        Friends
-    </h4>
-    <%for(u of locals.all_users){%>
-        <p>
-            <a href="/users/profile/<%=u.id%>"><%=u.name%></a>
-        </p>    
-    <%}%>
-</section>
+        
+        </section>
+    </div>
+</div>
