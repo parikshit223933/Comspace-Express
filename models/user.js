@@ -10,7 +10,8 @@ const user_schema=new mongoose.Schema({
         required:true,
     },
     name:{
-        
+        type:String,
+        required:true
     }
 }, {
     timestamps:true,
