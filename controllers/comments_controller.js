@@ -31,32 +31,20 @@ module.exports.create = async function (req, res)
 
 }
 
-module.exports.destroy = function (req, res)
+module.exports.destroy = async function (req, res)
 {
-    Comments.findById(req.params.id, function (error, comment)
+    let comment = await Comments.findById(req.params.id);
+
+    if (comment.user == req.user.id)
     {
-        if (error)
-        {
-            console.log('there was an error in finding the comment to delete.');
-            return;
-        }
-        if (comment.user == req.user.id)
-        {
-            let post_id = comment.post;
-            comment.remove();
-            Post.findByIdAndUpdate(post_id, { $pull: { comments: req.params.id } }, function (error, post)
-            {
-                if (error)
-                {
-                    console.log('Error in updating the post while trying to delete the comment!');
-                    return;
-                }
-                return res.redirect('back');
-            })
-        }
-        else
-        {
-            return res.redirect('back');
-        }
-    })
+        let post_id = comment.post;
+        comment.remove();
+        let post= await Post.findByIdAndUpdate(post_id, { $pull: { comments: req.params.id } });
+        
+        return res.redirect('back');
+    }
+    else
+    {
+        return res.redirect('back');
+    }
 }
