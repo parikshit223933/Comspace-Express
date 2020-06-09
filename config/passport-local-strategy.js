@@ -3,19 +3,19 @@ const LocalStrategy=require('passport-local').Strategy;/* importing passport-loc
 const User=require('../models/user'); /* imporated our user schema */
 
 /* telling passport.js to use the local strategy */
-passport.use(new LocalStrategy({usernameField:'email'},(email, password, done)=>
+passport.use(new LocalStrategy({usernameField:'email', passReqToCallback:true},(req, email, password, done)=>
 {
     /* trying to find the given user */
     User.findOne({email:email}, (error, user)=>
     {
         if(error)/* if there is some problem in finding the user! */
         {
-            console.log('Error in finding user --> Passport');
+            req.flash('error', err);
             return done(error);
         }
         if(!user || user.password!=password)//user not found or the user is found but the password did not match
         {
-            console.log('Invalid Username or Password');
+            req.flash('error', 'Invalid username or password!');
             return done(null, false);/* false denotes that the user was not found! */
             /* this false means that the authentication is not done! */
         }
