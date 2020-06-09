@@ -16,7 +16,7 @@
 
             <ul class="navbar-nav ml-auto">
                 <% if(locals.user){ %>
-                <li class="nav-item"><a href="/users/profile" class="nav-link text-white mr-2 animate__animated animate__heartBeat"><%= locals.user.name %></a></li>
+                <li class="nav-item"><a href="/users/profile/<%=locals.user.id%>" class="nav-link text-white mr-2 animate__animated animate__heartBeat"><%= locals.user.name %></a></li>
                 <li class="nav-item"> <a href="/users/sign-out" type="button" class="btn btn-danger">Sign Out</a> </li>
                 <%}else{%>
                 <li class="nav-item"><a href="/users/sign-in" type="button"
