@@ -10,12 +10,13 @@ module.exports.create = async (req, res) =>
                 content: req.body.content,
                 user: req.user._id
             });
+        req.flash('success', 'New post Created!');
         return res.redirect('back');
     }
     catch (error)
     {
-        console.log('error in creating a post!', error);
-        return;
+        req.flash('error', 'Error in creating a post');
+        return res.redirect('back');
     }
 
 }
@@ -34,19 +35,20 @@ module.exports.destroy = async (req, res) =>
             post.remove();
 
             await Comment.deleteMany({ post: req.params.id });
-
+            req.flash('success', 'Post was Deleted Successfully!');
             return res.redirect('back');
         }
         // else do not delete the post.
         else
         {
+            req.flash('error', 'You are Unauthorized to perform this action!');
             return res.redirect('back');
         }
     }
     catch(error)
     {
-        console.log('Error in destroying a post!', error);
-        return;
+        req.flash('error', 'There was a problem in deleting the post!');
+        return res.redirect('back');
     }
 
 

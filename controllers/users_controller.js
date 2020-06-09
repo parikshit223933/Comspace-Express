@@ -52,7 +52,7 @@ module.exports.create = (req, res) =>
 {
     if (req.body.password != req.body.confirm_password)/* if the passwords do not match */
     {
-        console.log('password does not match from the confirm password field.');
+        req.flash('error', 'Passwords does not match!');
         return res.redirect('back');
     }
     User.findOne({ email: req.body.email }, (error, user) =>
@@ -60,8 +60,8 @@ module.exports.create = (req, res) =>
         console.log(user);
         if (error)
         {
-            console.log('error in finding the user from the database!');
-            return;
+            req.flash('error', 'Error in finding the user from the database!');
+            return res.redirect('back');
         }
         if (!user)
         {
@@ -69,14 +69,16 @@ module.exports.create = (req, res) =>
             {
                 if (error)
                 {
-                    console.log('error in creating user while signing up');
-                    return;
+                    req.flash('error', 'An error occured while creating the account!');
+                    return res.redirect('back');
                 }
+                req.flash('success', 'New account created successfully!');
                 return res.redirect('/users/sign-in');
             });
         }
         else
         {
+            req.flash('error', 'User already exists!');
             return res.redirect('back');
         }
     });

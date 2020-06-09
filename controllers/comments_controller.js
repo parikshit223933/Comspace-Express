@@ -18,13 +18,16 @@ module.exports.create = async function (req, res)
             // updating
             post.comments.push(comment);
             post.save();
+
+            req.flash('success', 'New comment posted!');
+
             res.redirect('back')
         }
     }
     catch (error)
     {
-        console.log('There was an error in creating a comment!', error);
-        return;
+        req.flash('error', 'There was an error in creating a comment!');
+        return res.redirect('back');
     }
 
 
@@ -33,18 +36,29 @@ module.exports.create = async function (req, res)
 
 module.exports.destroy = async function (req, res)
 {
-    let comment = await Comments.findById(req.params.id);
+    try
+    {
+        let comment = await Comments.findById(req.params.id);
 
-    if (comment.user == req.user.id)
+        if (comment.user == req.user.id)
+        {
+            let post_id = comment.post;
+            comment.remove();
+            let post = await Post.findByIdAndUpdate(post_id, { $pull: { comments: req.params.id } });
+            req.flash('success', 'Comment deleted Successfully!');
+            return res.redirect('back');
+        }
+        else
+        {
+            req.flash('error', 'You are unauthorized to perform this action!');
+            return res.redirect('back');
+        }
+    }
+    catch (error)
     {
-        let post_id = comment.post;
-        comment.remove();
-        let post= await Post.findByIdAndUpdate(post_id, { $pull: { comments: req.params.id } });
-        
+        req.flash('error', 'There was an error in deleting the comment!');
         return res.redirect('back');
     }
-    else
-    {
-        return res.redirect('back');
-    }
+
+
 }
