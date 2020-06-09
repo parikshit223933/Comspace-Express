@@ -92,3 +92,24 @@ module.exports.destroySession = function (req, res)
     req.logout();
     return res.redirect('/');
 }
+
+module.exports.update=function(req, res)
+{
+    if(req.user.id==req.params.id)
+    {
+        /* only then update the credentials */
+        User.findByIdAndUpdate(req.params.id, /* {name:req.body.name, email:req.body.email} */req.body, function(error, user)
+        {
+            if(error)
+            {
+                console.log('unable to find the user by id and update!');
+                return;
+            }
+            return res.redirect('back');
+        });
+    }
+    else
+    {
+        return res.status(401).send('Unauthorized')
+    }
+}
