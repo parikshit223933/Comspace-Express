@@ -43,6 +43,12 @@
 
     <%- include('_header') %>
 
+    <%if(locals.flash.success && locals.flash.success.length>0){%>
+        <h1><%=locals.flash.success%></h1>
+    <%}%>
+
+
+
     <main id="layout-main">
         <%- body %>
     </main>

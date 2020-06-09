@@ -9,8 +9,10 @@ const db=require('./config/mongoose');
 const session=require('express-session');
 const passport=require('passport');
 const passportLocal=require('./config/passport-local-strategy');
+const flash=require('connect-flash');
 const mongoStore=require('connect-mongo')(session);
 const sassMiddleware=require('node-sass-middleware');
+const custom_middleware=require('./config/middleware');
 
 app.use(sassMiddleware(
     {
@@ -49,6 +51,10 @@ app.use(session(
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(passport.setAuthenticatedUser);
+
+/* it uses the express session and cookie parser so it needs to be set up after that.*/
+app.use(flash());
+app.use(custom_middleware.setFlash);
 
 app.use(express.urlencoded({extended:true}));
 app.use(cookieParser());

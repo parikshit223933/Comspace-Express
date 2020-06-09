@@ -84,12 +84,20 @@ module.exports.create = (req, res) =>
 
 module.exports.create_session = (req, res) =>
 {
+    req.flash('success', 'Logged in Successfully!');
     return res.redirect('/');
 }
 
 module.exports.destroySession = function (req, res)
 {
     req.logout();
+    req.flash('success', 'Logged out Successfully!');
+    /* now i have added the flash message in the request. so now this message needs to be 
+    transferred to the response, now either i can send it below as an object, but then
+    what is the use? everytime i will be sending a separate context just for the flash
+    message. so we dont need to do that. so lets create our own custom middleware. go to
+    config and create a new file called middleware.js(this can be any name.) and proceed
+    with it further. */
     return res.redirect('/');
 }
 
