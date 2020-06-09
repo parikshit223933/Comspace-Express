@@ -29,6 +29,10 @@
     <!-- FONT AWESOME -->
     <script src="https://kit.fontawesome.com/2d9b67a497.js" crossorigin="anonymous"></script>
 
+    <!-- NOTY for flash notifications -->
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.css">
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.js"></script>
+
     <!-- custom CSS -->
     <link rel="stylesheet" type="text/css" href="/css/layout.css">
     <link rel="stylesheet" type="text/css" href="/css/header.css">
@@ -43,12 +47,6 @@
 
     <%- include('_header') %>
 
-    <%if(locals.flash.success && locals.flash.success.length>0){%>
-        <h1><%=locals.flash.success%></h1>
-    <%}%>
-
-
-
     <main id="layout-main">
         <%- body %>
     </main>
@@ -58,6 +56,32 @@
 
     <!-- custom SCRIPT -->
     <%- script %>
+
+    <!-- NOTY -->
+    <script>
+        /* for success messages */
+        <%if (locals.flash.success && locals.flash.success.length > 0)
+        {%>
+            new Noty({
+                theme: 'metroui',
+                text: "<%=locals.flash.success%>",
+                type: 'success',
+                layout: 'topRight',
+                timeout: 1000,
+            }).show();
+        <%}%>
+        /* for error messages */
+        <%if (locals.flash.error && locals.flash.error.length > 0)
+        {%>
+            new Noty({
+                theme: 'metroui',
+                text: "<%=locals.flash.error%>",
+                type: 'error',
+                layout: 'topRight',
+                timeout: 1000,
+            }).show();
+        <%}%>
+    </script>
 </body>
 
 </html>
