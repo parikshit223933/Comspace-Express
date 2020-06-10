@@ -1,5 +1,5 @@
 <!-- for loop for comment cards -->
-<div class="card w-100 mt-3 mb-2">
+<div class="card w-100 mt-3 mb-2" id=<%=post._id%></div>
     <div class="card-body">
 
         <!-- options to delete a post and stuff -->
@@ -10,7 +10,8 @@
                 <i class="fas fa-ellipsis-h"></i>
             </a>
             <div class="dropdown-menu" aria-labelledby="more_options<%=itr%>">
-                <a class="dropdown-item" href="/posts/destroy/<%=post.id%>"><i class="fas fa-trash-alt"></i>
+                <a class="dropdown-item delete-post-button" href="/posts/destroy/<%=post.id%>"><i
+                        class="fas fa-trash-alt"></i>
                     Delete</a>
             </div>
         </div>
@@ -40,8 +41,8 @@
             <div id="post-comments-<%=post._id%>">
                 <%itr2=0;for(comment of post.comments){%>
 
-                    <%- include('_comment') -%>
-                
+                <%- include('_comment') -%>
+
                 <%itr2++;}%>
             </div>
         </div>
