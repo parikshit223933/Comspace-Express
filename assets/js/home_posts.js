@@ -1,3 +1,14 @@
+function noty_flash(type, message)
+{
+    new Noty({
+        theme: 'metroui',
+        text: message,
+        type: type,
+        layout: 'topRight',
+        timeout: 1000,
+    }).show();
+}
+
 /* method to submit the form data for new post using ajax */
 let create_post = () =>
 {
@@ -17,6 +28,8 @@ let create_post = () =>
                     
                     let new_post=new_post_dom(data.data.post);
                     $('#posts-container').prepend(new_post);
+                    noty_flash('success', 'Post created Successfully!');
+
                     $('textarea')[0].value="";/* clearing the text area */
                     deletePost($(' .delete-post-button', new_post));
                 },
@@ -92,10 +105,12 @@ let deletePost=(deleteLink)=>
             success:(data)=>
             {
                 $(`#post_${data.data.post_id}`).remove();
+                noty_flash('success', 'Post deleted Successfully')
             },
             error:(error)=>
             {
                 console.log(error.responseText);
+                noty_flash('error', 'There was some error in deleting the post')
             }
             });
     })
