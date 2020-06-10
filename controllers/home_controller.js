@@ -8,6 +8,7 @@ module.exports.home = async function (req, res)
     {
         // step 1=populating all the posts in the home page
         let posts = await Post.find({})
+            .sort('-createdAt')
             .populate('user')//populate user in the post model
             .populate(//we need to populate comments in the post model, and inside the comments we need to populate the user too.
                 {
