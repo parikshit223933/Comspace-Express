@@ -48,6 +48,20 @@ module.exports.destroy = async (req, res) =>
             post.remove();
 
             await Comment.deleteMany({ post: req.params.id });
+
+            if(req.xhr)
+            {
+                return res.status(200).json(
+                    {
+                        data:
+                        {
+                            post_id:req.params.id
+                        },
+                        message:'Post Deleted!',
+                    }
+                )
+            }
+
             req.flash('success', 'Post was Deleted Successfully!');
             return res.redirect('back');
         }
@@ -57,6 +71,7 @@ module.exports.destroy = async (req, res) =>
             req.flash('error', 'You are Unauthorized to perform this action!');
             return res.redirect('back');
         }
+
     }
     catch(error)
     {

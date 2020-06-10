@@ -5,7 +5,7 @@ let create_post = () =>
     new_post_form.submit((event) =>
     {
         event.preventDefault();
-
+        
         $.ajax(
             {
                 type: 'POST',
@@ -14,9 +14,11 @@ let create_post = () =>
                 success: (data) =>
                 {
                     /* the data we are recieving here is already in json format! */
-                    console.log(data);
+                    
                     let new_post=new_post_dom(data.data.post);
                     $('#posts-container').prepend(new_post);
+                    $('textarea')[0].value="";/* clearing the text area */
+                    deletePost($(' .delete-post-button', new_post));
                 },
                 error: (error) =>
                 {
@@ -29,7 +31,7 @@ let create_post = () =>
 let new_post_dom = (post) =>
 {
     return $(`<!-- for loop for comment cards -->
-    <div class="card w-100 mt-3 mb-2" id=${post._id}</div>
+    <div class="card w-100 mt-3 mb-2" id="post_${post._id}">
         <div class="card-body">
     
             <!-- options to delete a post and stuff -->
@@ -40,7 +42,7 @@ let new_post_dom = (post) =>
                     <i class="fas fa-ellipsis-h"></i>
                 </a>
                 <div class="dropdown-menu" aria-labelledby="more_options_${post._id}">
-                    <a class="dropdown-item delete-post-button" href="/posts/destroy/${post.id}"><i
+                    <a class="dropdown-item delete-post-button" href="/posts/destroy/${post._id}"><i
                             class="fas fa-trash-alt"></i>
                         Delete</a>
                 </div>
@@ -75,6 +77,28 @@ let new_post_dom = (post) =>
             
         </div>
     </div>`)
+}
+
+
+// method to delete a post from DOM
+let deletePost=(deleteLink)=>
+{
+    $(deleteLink).click((event)=>
+    {
+        event.preventDefault();
+        $.ajax({
+            type: "GET",
+            url: $(deleteLink).prop('href'),
+            success:(data)=>
+            {
+                $(`#post_${data.data.post_id}`).remove();
+            },
+            error:(error)=>
+            {
+                console.log(error.responseText);
+            }
+            });
+    })
 }
 
 
