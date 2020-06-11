@@ -1,22 +1,28 @@
 const Post = require('../models/post');
 const Comment = require('../models/comment')
+const User=require('../models/user');
 
 module.exports.create = async (req, res) =>
 {
     try
     {
-        let post= await Post.create(
+        let new_post=await Post.create(
             {
                 content: req.body.content,
                 user: req.user._id
             });
+        let post=await Post.findById(new_post._id).populate('user');
         /* if the req. is ajax request i.e. an xhr request *//////////////////
         if(req.xhr)
         {
             return res.status(200).json(
                 {
                     data:{
-                        post:post
+                        post_id:post._id,
+                        user_name:post.user.name,
+                        post_content:post.content,
+                        updatedAt:post.updatedAt,
+
                     },
                     message:'Post Created!'
                 }
