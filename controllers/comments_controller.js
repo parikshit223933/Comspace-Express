@@ -1,5 +1,6 @@
 const Comments = require('../models/comment');
 const Post = require('../models/post');
+const User=require('../models/user');
 
 module.exports.create = async function (req, res)
 {
@@ -9,15 +10,35 @@ module.exports.create = async function (req, res)
 
         if (post)
         {
-            let comment = await Comments.create(
+            let new_comment = await Comments.create(
                 {
                     content: req.body.content,
                     post: req.body.post,
                     user: req.user._id
-                });
+                }
+            );
             // updating
-            post.comments.push(comment);
+            post.comments.push(new_comment);
             post.save();
+            let comment=await Comments.findById(new_comment._id)
+            .populate('user')
+            .populate('post');
+            if(req.xhr)
+            {
+                console.log(comment);
+                return res.status(200).json(
+                    {
+                        data:
+                        {   
+                            comment_id:comment._id,
+                            user_name:comment.user.name,
+                            comment_content:comment.content,
+                            post_id:comment.post._id,
+                        },
+                        message:'Comment Created!',
+                    }
+                )
+            }
 
             req.flash('success', 'New comment posted!');
 

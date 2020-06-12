@@ -29,7 +29,7 @@
     </div>
     <div class="collapse post-comments mr-2 ml-2" id="collapse<%=itr%>">
         <%if(locals.user){%>
-        <form action="/comments/create" method="POST">
+        <form action="/comments/create" method="POST" id="new-comment-form">
             <input type="text" class="form-control" placeholder="Add a new Comment..." aria-label="Username"
                 aria-describedby="basic-addon1" name="content" required>
             <input type="hidden" name="post" value="<%=post._id%>">
