@@ -35,7 +35,16 @@ let storage=multer.diskStorage(
             cb(null, file.fieldname+'-'+Date.now());
         }
     }
-)
+);
+
+//static functions - these are the functions which are applied over all the objects of a particular class.
+user_schema.statics.uploadedAvatar=multer(
+    {
+        storage:storage,
+    }
+).single('avatar');
+//This single denotes that only one file will be uploaded for our use case.
+user_schema.statics.avatar_path=AVATAR_PATH;
 
 
 const user=mongoose.model('User', user_schema);
