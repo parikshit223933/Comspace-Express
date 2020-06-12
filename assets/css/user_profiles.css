@@ -2,3 +2,19 @@ body {
   margin: 0px;
   padding: 0px;
 }
+
+body section {
+  border: 2px solid black;
+}
+
+body section #profile-picture {
+  width: 200px;
+  height: 200px;
+  border-radius: 3%;
+}
+
+body section #profile-picture img {
+  border-radius: inherit;
+  width: 100%;
+  height: 100%;
+}

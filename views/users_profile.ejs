@@ -1,78 +1,88 @@
 <link rel="stylesheet" href="/css/user_profiles.css">
 
-
-<section class="col-sm-8 offset-sm-2">
-    <h1>This is the profile of <%=locals.profile_user.name%></h1>
-
-
-
-
-
-
-    <%if(profile_user.id==user.id){%>
-    <!-- if user matches then show the form to change the details else only show the profile info -->
-
-    <!-- Button trigger modal -->
-    <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#exampleModal">
-        Update Credentials
-    </button>
-
-    <!-- Modal /////////////////////////////////////////////////-->
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <!-- modal header -->
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Update Credentials</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <!-- form for modal -->
-                <form action="/users/update/<%=profile_user.id%>" method="POST" enctype="multipart/form-data">
-                    <!-- modal body -->
-                    <div class="modal-body">
-                        <div class="form-group">
-                            <label for="name">New Name</label>
-                            <input type="text" class="form-control" id="name" aria-describedby="name" name="name"
-                                value="<%=profile_user.name%>" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="email">New Email</label>
-                            <input type="email" class="form-control" id="email" name="email" required
-                                value="<%=profile_user.email%>">
-                        </div>
-                        <div class="form-group">
-                            <label for="avatar">Upload Profile Picture</label>
-                            <input type="file" name="avatar" class="form-control-file" id="avatar">
-                        </div>
-                    </div>
-                    <!-- modeal footer -->
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Update</button>
-                    </div>
-                </form>
+<div class="container mt-3">
+    <div class="row">
+        <section class="col-sm-4 pb-2 pt-2">
+            <!-- profile picture -->
+            <div id="profile-picture" class="ml-auto mr-auto mt-2 mb-2">
+                <img src="<%=user.avatar%>" alt="<%=user.name%>">
             </div>
-        </div>
+            <!-- name -->
+            <div class="text-center">
+                <h3><%=user.name%></h3>
+            </div>
+
+            <!-- update credentials -->
+            <div class="text-center">
+                <%if(profile_user.id==user.id){%>
+                    <!-- if user matches then show the form to change the details else only show the profile info -->
+        
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-light mt-3" data-toggle="modal" data-target="#exampleModal">
+                        Update Credentials
+                    </button>
+        
+                    <!-- Modal /////////////////////////////////////////////////-->
+                    <div class="modal fade text-left" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <!-- modal header -->
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Update Credentials</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <!-- form for modal -->
+                                <form action="/users/update/<%=profile_user.id%>" method="POST" enctype="multipart/form-data">
+                                    <!-- modal body -->
+                                    <div class="modal-body">
+                                        <div class="form-group">
+                                            <label for="name">New Name</label>
+                                            <input type="text" class="form-control" id="name" aria-describedby="name"
+                                                name="name" value="<%=profile_user.name%>" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="email">New Email</label>
+                                            <input type="email" class="form-control" id="email" name="email" required
+                                                value="<%=profile_user.email%>">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="avatar">Upload Profile Picture</label>
+                                            <input type="file" name="avatar" class="form-control-file" id="avatar">
+                                        </div>
+                                    </div>
+                                    <!-- modeal footer -->
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-primary">Update</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- //////////////////////////////////////////////////////// -->
+        
+        
+        
+                    <%}else{%>
+                    <p>
+                        <%=locals.profile_user.name%>
+                    </p>
+                    <p>
+                        <%=locals.profile_user.email%>
+                    </p>
+        
+                    <%}%>
+            </div>
+        </section>
+
+
+
+        <section class="col-sm-8 pb-2 pt-2">
+
+            
+        </section>
     </div>
-    <!-- //////////////////////////////////////////////////////// -->
-
-
-
-
-
-
-
-
-    <%}else{%>
-    <p>
-        <%=locals.profile_user.name%>
-    </p>
-    <p>
-        <%=locals.profile_user.email%>
-    </p>
-
-    <%}%>
-</section>
+</div>
