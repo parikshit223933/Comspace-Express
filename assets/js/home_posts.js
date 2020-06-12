@@ -1,3 +1,4 @@
+
 function noty_flash(type, message)
 {
     new Noty({
@@ -27,6 +28,9 @@ let create_post = () =>
                     /* the data we are recieving here is already in json format! */
                     let new_post=new_post_dom(data.data);
                     $('#posts-container').prepend(new_post);
+
+                    comment_creator($(`#post_${data.data.post_id} .new-comment-form`));
+
                     noty_flash('success', 'Post created Successfully!');
 
                     $('textarea')[0].value="";/* clearing the text area */
@@ -73,7 +77,7 @@ let new_post_dom = (data) =>
         </div>
         <div class="collapse post-comments mr-2 ml-2" id="collapse_${data.post_id}">
             
-            <form action="/comments/create" method="POST">
+            <form action="/comments/create" method="POST" class="new-comment-form">
                 <input type="text" class="form-control" placeholder="Add a new Comment..." aria-label="Username"
                     aria-describedby="basic-addon1" name="content" required>
                 <input type="hidden" name="post" value="${data.post_id}">
@@ -125,3 +129,104 @@ let apply_dynamic_delete_to_existing_posts=function()
 
 apply_dynamic_delete_to_existing_posts()
 create_post();
+
+
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+let comment_creator = function (new_comment_form)
+{
+
+    new_comment_form.submit((event) =>
+    {
+        event.preventDefault();
+
+        $.ajax(
+            {
+                type: 'POST',
+                url: "/comments/create",
+                data: new_comment_form.serialize(),
+                success: (data) =>
+                {
+                    let new_comment = new_comment_dom(data.data);
+                    $(`#post-comments-${data.data.post_id}`).prepend(new_comment);
+                    $(`#post_${data.data.post_id} .new-comment-form input`)[0].value = "";
+                    noty_flash('success', 'Comment posted Successfully!');
+                    delete_comment($(' .delete-comment-button', new_comment));
+                },
+                error: (error) =>
+                {
+                    noty_flash('success', 'Error in posting a comment!');
+                    console.log(error.responseText);
+                }
+            }
+        )
+    })
+}
+let new_comment_dom = (data) =>
+{
+    return $(`<!-- for deleting a comment -->
+    <div id="comment_id_${data.comment_id}">
+        <div class="dropdown">
+            <a class="float-right" href="" id="more_options_${data.comment_id}" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
+                <i class="fas fa-ellipsis-h"></i>
+            </a>
+            <div class="dropdown-menu" aria-labelledby="more_options_${data.comment_id}">
+                <a class="dropdown-item delete-comment-button" href="/comments/destroy/${data.comment_id}"><i
+                        class="fas fa-trash-alt"></i>
+                    Delete</a>
+            </div>
+        </div>
+        <b>${data.user_name}</b>
+        <p>
+            ${data.comment_content}
+        </p>
+        <hr>
+    </div>`);
+}
+
+/* function to apply AJAX delete to a particular comment */
+let delete_comment = (deleteLink) =>
+{
+    $(deleteLink).click((event) =>
+    {
+        event.preventDefault();
+
+        $.ajax(
+            {
+                type: "GET",
+                url: $(deleteLink).prop('href'),
+                success: (data) =>
+                {
+                    $(`#comment_id_${data.data.comment_id}`).remove();
+                    noty_flash('success', 'Comment deleted Successfully');
+                },
+                error: (error) =>
+                {
+                    console.log(error.responseText);
+                    noty_flash('error', 'There was some error in deleting the post!');
+                }
+            }
+        )
+    })
+}
+
+let apply_dynamic_comment_delete_to_existing_comments = (link) =>
+{
+    delete_comment(link);
+}
+
+
+/* existing */
+/* applying dynamic AJAX delete on all the posts of the page */
+for (let link of $('.delete-comment-button'))
+{
+    apply_dynamic_comment_delete_to_existing_comments(link);
+}
+/* applying dynamic comment creation on all the posts of the page */
+for (let new_comment_form of $('.new-comment-form'))
+{
+    comment_creator($(new_comment_form));
+}
