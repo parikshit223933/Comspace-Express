@@ -32,7 +32,7 @@ let storage=multer.diskStorage(
         },
         filename(req, file, callback)
         {
-            cb(null, file.fieldname+'-'+Date.now());
+            callback(null, file.fieldname+'-'+Date.now());
         }
     }
 );
