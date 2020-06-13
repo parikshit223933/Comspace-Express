@@ -84,8 +84,4 @@ module.exports.destroy = async (req, res) =>
         req.flash('error', 'There was a problem in deleting the post!');
         return res.redirect('back');
     }
-
-
-
-    
 }
