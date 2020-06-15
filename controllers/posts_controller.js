@@ -1,6 +1,7 @@
 const Post = require('../models/post');
 const Comment = require('../models/comment')
 const User=require('../models/user');
+const posts_mailer=require('../mailers/posts_mailer');
 
 module.exports.create = async (req, res) =>
 {
@@ -13,6 +14,7 @@ module.exports.create = async (req, res) =>
             });
         let post=await Post.findById(new_post._id).populate('user');
         /* if the req. is ajax request i.e. an xhr request *//////////////////
+        posts_mailer.new_post(post);
         if(req.xhr)
         {
             return res.status(200).json(

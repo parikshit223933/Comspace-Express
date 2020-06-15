@@ -1,6 +1,7 @@
 const Comments = require('../models/comment');
 const Post = require('../models/post');
 const User=require('../models/user');
+const comments_mailer=require('../mailers/comments_mailer');
 
 module.exports.create = async function (req, res)
 {
@@ -23,6 +24,7 @@ module.exports.create = async function (req, res)
             let comment=await Comments.findById(new_comment._id)
             .populate('user')
             .populate('post');
+            comments_mailer.new_comment(comment);
             if(req.xhr)
             {
                 console.log(comment);
