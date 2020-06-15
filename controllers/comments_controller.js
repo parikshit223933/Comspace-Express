@@ -24,7 +24,7 @@ module.exports.create = async function (req, res)
             let comment=await Comments.findById(new_comment._id)
             .populate('user')
             .populate('post');
-            comments_mailer.new_comment(comment);
+            comments_mailer.create_new_comment(comment);
             if(req.xhr)
             {
                 console.log(comment);
