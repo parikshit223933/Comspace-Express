@@ -7,3 +7,4 @@ queue.process('emails', function(job, done)
     comments_mailer.create_new_comment(job.data);
     done();
 })
+
