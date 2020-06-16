@@ -5,11 +5,11 @@
         <!-- options to delete a post and stuff -->
         <% if(locals.user&&locals.user.id==post.user.id){ %>
         <div class="dropdown">
-            <a class="float-right" href="" id="more_options<%=itr%>" data-toggle="dropdown" aria-haspopup="true"
+            <a class="float-right" href="" id="more_options<%=post._id%>" data-toggle="dropdown" aria-haspopup="true"
                 aria-expanded="false">
                 <i class="fas fa-ellipsis-h"></i>
             </a>
-            <div class="dropdown-menu" aria-labelledby="more_options<%=itr%>">
+            <div class="dropdown-menu" aria-labelledby="more_options<%=post._id%>">
                 <a class="dropdown-item delete-post-button" href="/posts/destroy/<%=post.id%>"><i
                         class="fas fa-trash-alt"></i>
                     Delete</a>
@@ -22,12 +22,19 @@
         <p class="card-text"><%=post.content%></p>
         <div class="card-text mt-2"><small><%=post.user.updatedAt.toString().substr(0, 15)%></small></div>
         <hr>
-        <a href=""><i class="far fa-heart"></i></a>&nbsp&nbsp&nbsp
-        <a data-toggle="collapse" href="#collapse<%=itr%>" role="button" aria-expanded="false"
-            aria-controls="collapse<%=itr%>"><i class="far fa-comment"></i></a>&nbsp&nbsp&nbsp
-        <a href=""><i class="fas fa-paper-plane"></i></a>
+
+        <div class="align-middle action-buttons">
+            <!-- like button on post -->
+            <a id="like-<%=post._id%>" class="like-buttons" data-toggle="false"><i class="far fa-heart"></i><span
+                id="likes_count">10</span></a> &nbsp&nbsp&nbsp
+            <!-- comment button on post -->
+            <a data-toggle="collapse" href="#collapse<%=post._id%>" role="button" aria-expanded="false"
+                aria-controls="collapse<%=post._id%>"><i class="far fa-comment"></i></a>&nbsp&nbsp&nbsp
+            <!-- send button on post -->
+            <a href=""><i class="fas fa-paper-plane"></i></a>
+        </div>
     </div>
-    <div class="collapse post-comments mr-2 ml-2" id="collapse<%=itr%>">
+    <div class="collapse post-comments mr-2 ml-2" id="collapse<%=post._id%>">
         <%if(locals.user){%>
         <form action="/comments/create" method="POST" class="new-comment-form">
             <input type="text" class="form-control" placeholder="Add a new Comment..." aria-label="Username"
@@ -39,15 +46,15 @@
         <hr>
         <div class="post-comments-lister-list pl-4 pr-4">
             <div id="post-comments-<%=post._id%>">
-                <%itr2=0;for(comment of post.comments){%>
+                <%for(comment of post.comments){%>
 
                 <%- include('_comment') -%>
 
-                <%itr2++;}%>
+                <%}%>
             </div>
         </div>
         <%}else{%>
-        <p>Please Log In to see Comments!</p>
-        <%}%>
+                <p>Please Log In to see Comments!</p>
+                <%}%>
     </div>
 </div>

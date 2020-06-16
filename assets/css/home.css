@@ -28,3 +28,7 @@
 .row section:nth-child(3) ul::-webkit-scrollbar {
   display: none;
 }
+
+.action-buttons {
+  cursor: pointer;
+}

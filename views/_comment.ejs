@@ -2,11 +2,11 @@
 <div id="comment_id_<%=comment.id%>">
 <% if(locals.user&&locals.user.id==comment.user.id){ %>
     <div class="dropdown">
-        <a class="float-right" href="" id="more_options<%=itr2%>" data-toggle="dropdown"
+        <a class="float-right" href="" id="more_options<%=comment.id%>" data-toggle="dropdown"
             aria-haspopup="true" aria-expanded="false">
             <i class="fas fa-ellipsis-h"></i>
         </a>
-        <div class="dropdown-menu" aria-labelledby="more_options<%=itr2%>">
+        <div class="dropdown-menu" aria-labelledby="more_options<%=comment.id%>">
             <a class="dropdown-item delete-comment-button" href="/comments/destroy/<%=comment.id%>"><i
                     class="fas fa-trash-alt"></i>
                 Delete</a>
