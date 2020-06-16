@@ -8,6 +8,11 @@
 
 .card {
   box-shadow: 0px 5px 10px 1px #dbdbdb;
+  transition: all ease-in-out 0.2s;
+}
+
+.card:hover {
+  box-shadow: 0px 0px 2px 1px #f0f0f0;
 }
 
 .row section:nth-child(3) a:hover {

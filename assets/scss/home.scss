@@ -12,6 +12,11 @@
 .card
 {
     box-shadow: 0px 5px 10px 1px rgb(219, 219, 219);
+    transition:all ease-in-out 0.2s;
+    &:hover
+    {
+        box-shadow: 0px 0px 2px 1px rgb(240, 240, 240);
+    }
 }
 .row
 {
