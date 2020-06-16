@@ -25,9 +25,7 @@ module.exports.generate_token_and_send_mail=async (req, res)=>
             user:user,
         }
     );
-    console.log('***********************************')
-    console.log(token);
-    console.log('***********************************')
+    
     let job=queue.create('send_reset_pass_mail', token).save(function(error)
     {
         if(error)
