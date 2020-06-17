@@ -16,9 +16,14 @@ module.exports.home = async function (req, res)
                     populate:
                     {
                         path: 'user'
+                    },
+                    populate:
+                    {
+                        path:'likes'
                     }
                 }
-            );
+            )
+            .populate('likes');
 
         //step 2= finding all the users which will then be passed to the rendering function.
         let users = await User.find({});
