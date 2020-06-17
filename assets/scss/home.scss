@@ -52,4 +52,8 @@
 .action-buttons
 {
     cursor: pointer;
+    a:nth-child(1):hover
+    {
+        text-decoration:none;
+    }
 }

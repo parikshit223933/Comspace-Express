@@ -27,8 +27,8 @@
             <!-- like button on post -->
             <%if(locals.user){%>
             <a href="/likes/toggle/?id=<%=post._id%>&type=Post" id="like-<%=post._id%>" class="like-buttons"
-                data-toggle="false" data-likes="<%=post.likes.length%>"><i
-                    class="far fa-heart"></i></a> <%=post.likes.length%>
+                data-toggle="false" data-likes="<%=post.likes.length%>"><i class="far fa-heart"></i>
+                <span><%=post.likes.length%></span> </a>
             &nbsp&nbsp&nbsp
             <%}else{%>
             <%=post.likes.length%> Likes&nbsp&nbsp

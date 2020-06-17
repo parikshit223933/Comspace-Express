@@ -37,3 +37,7 @@
 .action-buttons {
   cursor: pointer;
 }
+
+.action-buttons a:nth-child(1):hover {
+  text-decoration: none;
+}

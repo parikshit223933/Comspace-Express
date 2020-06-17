@@ -17,7 +17,7 @@ let create_post = () =>
     new_post_form.submit((event) =>
     {
         event.preventDefault();
-        
+
         $.ajax(
             {
                 type: 'POST',
@@ -26,14 +26,14 @@ let create_post = () =>
                 success: (data) =>
                 {
                     /* the data we are recieving here is already in json format! */
-                    let new_post=new_post_dom(data.data);
+                    let new_post = new_post_dom(data.data);
                     $('#posts-container').prepend(new_post);
 
                     comment_creator($(`#post_${data.data.post_id} .new-comment-form`));
 
                     noty_flash('success', 'Post created Successfully!');
 
-                    $('textarea')[0].value="";/* clearing the text area */
+                    $('textarea')[0].value = "";/* clearing the text area */
                     deletePost($(' .delete-post-button', new_post));
                 },
                 error: (error) =>
@@ -64,13 +64,16 @@ let new_post_dom = (data) =>
                 </div>
             </div>
             
-    
-    
+
             <h5 class="card-title">${data.user_name}</h5>
             <p class="card-text">${data.post_content}</p>
             <div class="card-text mt-2"><small>${data.updatedAt.toString().substr(0, 15)}</small></div>
             <hr>
-            <a href=""><i class="far fa-heart"></i></a>&nbsp&nbsp&nbsp
+            
+            <a href="/likes/toggle/?id=${data.post_id}&type=Post" id="like-${data.post_id}" class="like-buttons"
+            data-toggle="false" data-likes="0"><i class="far fa-heart"></i></a> 0
+            &nbsp&nbsp&nbsp
+
             <a data-toggle="collapse" href="#collapse_${data.post_id}" role="button" aria-expanded="false"
                 aria-controls="collapse${data.post_id}"><i class="far fa-comment"></i></a>&nbsp&nbsp&nbsp
             <a href=""><i class="fas fa-paper-plane"></i></a>
@@ -97,31 +100,31 @@ let new_post_dom = (data) =>
 
 
 // method to delete a post from DOM
-let deletePost=(deleteLink)=>
+let deletePost = (deleteLink) =>
 {
-    $(deleteLink).click((event)=>
+    $(deleteLink).click((event) =>
     {
         event.preventDefault();
         $.ajax({
             type: "GET",
             url: $(deleteLink).prop('href'),
-            success:(data)=>
+            success: (data) =>
             {
                 $(`#post_${data.data.post_id}`).remove();
                 noty_flash('success', 'Post deleted Successfully')
             },
-            error:(error)=>
+            error: (error) =>
             {
                 console.log(error.responseText);
                 noty_flash('error', 'There was some error in deleting the post');
             }
-            });
+        });
     })
 }
 
-let apply_dynamic_delete_to_existing_posts=function()
+let apply_dynamic_delete_to_existing_posts = function ()
 {
-    for(let link of $('.delete-post-button'))
+    for (let link of $('.delete-post-button'))
     {
         deletePost(link);
     }
@@ -183,6 +186,18 @@ let new_comment_dom = (data) =>
         <p>
             ${data.comment_content}
         </p>
+
+        <div class="align-middle action-buttons">
+            <!-- like button on post -->
+            <a href="/likes/toggle/?id=${data.comment_id}&type=Comment" id="like-${data.comment_id}" class="like-buttons"
+                data-likes="0" data-toggle="false"><i class="far fa-heart"></i> <span>0</span> </a> &nbsp
+            <!-- comment button on post -->
+            <a data-toggle="collapse" href="#collapse${data.comment_id}" role="button" aria-expanded="false"
+            aria-controls="collapse${data.comment_id}"><i class="far fa-comment"></i></a>&nbsp
+            <!-- send button on post -->
+            <a href=""><i class="fas fa-paper-plane"></i></a>
+        </div>
+
         <hr>
     </div>`);
 }
@@ -210,7 +225,7 @@ let delete_comment = (deleteLink) =>
                 }
             }
         )
-    })
+    });
 }
 
 let apply_dynamic_comment_delete_to_existing_comments = (link) =>
