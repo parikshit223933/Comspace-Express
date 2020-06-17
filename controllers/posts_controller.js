@@ -1,6 +1,7 @@
 const Post = require('../models/post');
 const Comment = require('../models/comment')
 const User=require('../models/user');
+const Like=require('../models/like');
 const posts_mailer=require('../mailers/posts_mailer');
 
 module.exports.create = async (req, res) =>
@@ -53,6 +54,11 @@ module.exports.destroy = async (req, res) =>
         // if the id of the post to be deleted is same as the id os the logged in user then only delete the post.
         if (post.user == req.user.id)
         {
+            /* delete the associated likes of a post and all its comment's likes too */
+            await Like.deleteMany({likable:post, onModel:'Post'});
+            await Like.deleteMany({_id:{$in:post.comments}});
+
+
             post.remove();
 
             await Comment.deleteMany({ post: req.params.id });
