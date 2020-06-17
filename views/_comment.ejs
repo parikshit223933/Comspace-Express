@@ -1,10 +1,10 @@
 <!-- for deleting a comment -->
 <div id="comment_id_<%=comment.id%>">
     <!-- user will only be able to delete his own comments -->
-<% if(locals.user&&locals.user.id==comment.user.id){ %>
+    <% if(locals.user&&locals.user.id==comment.user.id){ %>
     <div class="dropdown">
-        <a class="float-right" href="" id="more_options<%=comment.id%>" data-toggle="dropdown"
-            aria-haspopup="true" aria-expanded="false">
+        <a class="float-right" href="" id="more_options<%=comment.id%>" data-toggle="dropdown" aria-haspopup="true"
+            aria-expanded="false">
             <i class="fas fa-ellipsis-h"></i>
         </a>
         <div class="dropdown-menu" aria-labelledby="more_options<%=comment.id%>">
@@ -20,14 +20,18 @@
     <p>
         <%=comment.content%>
     </p>
-    
+
     <div class="align-middle action-buttons">
         <!-- like button on post -->
-        <a id="like-<%=comment._id%>" class="like-buttons" data-toggle="false"><i class="far fa-heart"></i><span
-            id="likes_count">10</span></a> &nbsp
+        <%if(locals.user){%>
+        <a href="/likes/toggle/?id=<%=comment._id%>&type=Comment" id="like-<%=comment._id%>" class="like-buttons"
+            data-likes="<%=comment.likes.length%>" data-toggle="false"><i class="far fa-heart"></i></a> <%=comment.likes.length%> &nbsp
+        <%}else{%>
+            <%=comment.likes.length%> Likes
+        <%}%>
         <!-- comment button on post -->
         <a data-toggle="collapse" href="#collapse<%=comment._id%>" role="button" aria-expanded="false"
-            aria-controls="collapse<%=comment._id%>"><i class="far fa-comment"></i></a>&nbsp
+        aria-controls="collapse<%=comment._id%>"><i class="far fa-comment"></i></a>&nbsp
         <!-- send button on post -->
         <a href=""><i class="fas fa-paper-plane"></i></a>
     </div>
