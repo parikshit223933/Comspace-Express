@@ -1,36 +1,39 @@
-let add_click_action_to_like_button= function()
+let add_click_action_to_like_button = function ()
 {
-    for(let like_button of $('.like-buttons'))
+    for (let like_button of $('.like-buttons'))
     {
-        let button=$(like_button);
-        button.click(function(event)
+        let button = $(like_button);
+        button.click(function (event)
         {
             event.preventDefault();
             $.ajax(
                 {
-                    type:'GET',
-                    url:button.attr('href')
+                    type: 'GET',
+                    url: button.attr('href')
                 }
             )
-            .done(function(data)
-            {
-                let likes_count=button.attr('data-likes');
-                console.log(likes_count);
-                if(data.data.deleted)
+                .done(function (data)
                 {
-                    likes_count=parseInt(likes_count)-1;
-                }
-                else
+                    let likes_count = button.attr('data-likes');
+                    console.log(likes_count);
+                    if (data.data.deleted)
+                    {
+                        likes_count = parseInt(likes_count) - 1;
+                    }
+                    else
+                    {
+                        likes_count = parseInt(likes_count) + 1;
+                    }
+                    button.attr('data-likes', likes_count);
+                    button.find('span').html(likes_count);
+                })
+                .fail(function (error)
                 {
-                    likes_count=parseInt(likes_count)+1;
-                }
-                button.attr('data-likes', likes_count);
-                button.find('span').html(likes_count);
-            })
-            .fail(function(error)
-            {
-                console.log('error in completing the ajax request');
-            })
+                    if (error)
+                    {
+                        console.log('error in completing the ajax request');
+                    }
+                })
 
             /* event.preventDefault();
             if(button[0].dataset.toggle=='false')
