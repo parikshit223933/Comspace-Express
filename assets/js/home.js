@@ -32,11 +32,6 @@ let add_click_action_to_like_button= function()
                 console.log('error in completing the ajax request');
             })
 
-
-
-
-
-
             /* event.preventDefault();
             if(button[0].dataset.toggle=='false')
             {
