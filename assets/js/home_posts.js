@@ -1,4 +1,4 @@
-
+/* post functionalities */
 function noty_flash(type, message)
 {
     new Noty({
@@ -138,7 +138,8 @@ create_post();
 
 
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/* comments functionality */
 
 let comment_creator = function (new_comment_form)
 {
@@ -158,6 +159,7 @@ let comment_creator = function (new_comment_form)
                     $(`#post-comments-${data.data.post_id}`).prepend(new_comment);
                     $(`#post_${data.data.post_id} .new-comment-form input`)[0].value = "";
                     noty_flash('success', 'Comment posted Successfully!');
+                    add_like_button_functionality($(`#like-${data.data.comment_id}`))
                     delete_comment($(' .delete-comment-button', new_comment));
                 },
                 error: (error) =>
@@ -247,7 +249,8 @@ for (let new_comment_form of $('.new-comment-form'))
 {
     comment_creator($(new_comment_form));
 }
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/* like button functionality */
 
 let add_like_button_functionality = (button) =>
 {
