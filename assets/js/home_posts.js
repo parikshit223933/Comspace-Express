@@ -30,7 +30,9 @@ let create_post = () =>
                     $('#posts-container').prepend(new_post);
 
                     comment_creator($(`#post_${data.data.post_id} .new-comment-form`));
-
+                    
+                    add_like_button_functionality($(`#like-${data.data.post_id}`));
+                    
                     noty_flash('success', 'Post created Successfully!');
 
                     $('textarea')[0].value = "";/* clearing the text area */
@@ -71,7 +73,7 @@ let new_post_dom = (data) =>
             <hr>
             
             <a href="/likes/toggle/?id=${data.post_id}&type=Post" id="like-${data.post_id}" class="like-buttons"
-            data-toggle="false" data-likes="0"><i class="far fa-heart"></i></a> 0
+            data-toggle="false" data-likes="0"><i class="far fa-heart"></i> <span>0</span></a>
             &nbsp&nbsp&nbsp
 
             <a data-toggle="collapse" href="#collapse_${data.post_id}" role="button" aria-expanded="false"
@@ -244,4 +246,42 @@ for (let link of $('.delete-comment-button'))
 for (let new_comment_form of $('.new-comment-form'))
 {
     comment_creator($(new_comment_form));
+}
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+let add_like_button_functionality = (button) =>
+{
+    /* for (let like_button of $('.like-buttons')) */
+        button.click(function (event)
+        {
+            event.preventDefault();
+            $.ajax(
+                {
+                    type: 'GET',
+                    url: button.attr('href')
+                }
+            )
+                .done(function (data)
+                {
+                    let likes_count = button.attr('data-likes');
+                    console.log(likes_count);
+                    if (data.data.deleted)
+                    {
+                        likes_count = parseInt(likes_count) - 1;
+                    }
+                    else
+                    {
+                        likes_count = parseInt(likes_count) + 1;
+                    }
+                    button.attr('data-likes', likes_count);
+                    button.find('span').html(likes_count);
+                })
+                .fail(function (error)
+                {
+                    if (error)
+                    {
+                        console.log('error in completing the ajax request');
+                    }
+                })
+        })
 }

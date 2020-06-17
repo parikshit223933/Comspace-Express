@@ -38,6 +38,6 @@
   cursor: pointer;
 }
 
-.action-buttons a:nth-child(1):hover {
+:root a:hover {
   text-decoration: none;
 }
