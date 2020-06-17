@@ -25,11 +25,17 @@
 
         <div class="align-middle action-buttons">
             <!-- like button on post -->
-            <a id="like-<%=post._id%>" class="like-buttons" data-toggle="false"><i class="far fa-heart"></i><span
-                id="likes_count">10</span></a> &nbsp&nbsp&nbsp
+            <%if(locals.user){%>
+            <a href="/likes/toggle/?id=<%=post._id%>&type=Post" id="like-<%=post._id%>" class="like-buttons"
+                data-toggle="false" data-likes="<%=post.likes.length%>"><i
+                    class="far fa-heart"></i></a> <%=post.likes.length%>
+            &nbsp&nbsp&nbsp
+            <%}else{%>
+            <%=post.likes.length%> Likes
+            <%}%>
             <!-- comment button on post -->
             <a data-toggle="collapse" href="#collapse<%=post._id%>" role="button" aria-expanded="false"
-                aria-controls="collapse<%=post._id%>"><i class="far fa-comment"></i></a>&nbsp&nbsp&nbsp
+            aria-controls="collapse<%=post._id%>"><i class="far fa-comment"></i></a>&nbsp&nbsp&nbsp
             <!-- send button on post -->
             <a href=""><i class="fas fa-paper-plane"></i></a>
         </div>
