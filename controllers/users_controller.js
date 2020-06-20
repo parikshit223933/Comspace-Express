@@ -1,24 +1,49 @@
 const User = require('../models/user');
-const fs=require('fs');
-const path=require('path');
+const fs = require('fs');
+const Friendship = require('../models/friendship');
+const path = require('path');
 /* USER PROFILE */
 module.exports.profile = (req, res) =>
 {
     User.findById(req.params.id, function (error, user)
     {
-        if(error)
+        if (error)
         {
             console.log('error in finding the user profile!');
             return;
         }
-        var options =
+
+        let are_friends = false;
+
+        Friendship.findOne({
+            $or: [{ from_user: req.user._id, to_user: req.params.id },
+            { from_user: req.params.id, to_user: req.user._id }]
+        }, function (error, friendship)
         {
-            user_name: "parikshit singh",
-            title: "ComSpace Express",
-            profile_user:user
-        }
-        return res.render('users_profile', options);
-    })
+            if (error)
+            {
+                console.log('There was an error in finding the friendship', error);
+                return;
+            }
+            if (friendship)
+            {
+                are_friends = true;
+            }
+            console.log('*************', are_friends, '*********************');
+            /* console.log(req.user);
+            console.log(req.user._id, '********', req.params.id, '*******') */
+            var options =
+            {
+                user_name: "parikshit singh",
+                title: "ComSpace Express",
+                profile_user: user,/* it is the user whose profile i am currently browsing */
+                are_friends: are_friends
+            }
+            return res.render('users_profile', options);
+        })
+
+
+    });
 
 }
 
@@ -104,7 +129,7 @@ module.exports.destroySession = function (req, res)
     return res.redirect('/');
 }
 
-module.exports.update=async function(req, res)
+module.exports.update = async function (req, res)
 {
     /* if(req.user.id==req.params.id)
     {
@@ -125,24 +150,24 @@ module.exports.update=async function(req, res)
         return res.status(401).send('Unauthorized')
     } */
 
-    if(req.user.id==req.params.id)
+    if (req.user.id == req.params.id)
     {
         try
         {
-            let user=await User.findById(req.params.id);
-            User.uploadedAvatar(req, res, function(error)
+            let user = await User.findById(req.params.id);
+            User.uploadedAvatar(req, res, function (error)
             {
-                if(error)
+                if (error)
                 {
                     console.log('****Multer Error', error);
                 }
-                user.name=req.body.name;
-                user.email=req.body.email;
-                if(req.file)
-                {   
-                    if(user.avatar)
+                user.name = req.body.name;
+                user.email = req.body.email;
+                if (req.file)
+                {
+                    if (user.avatar)
                     {
-                        if(fs.existsSync(path.join(__dirname, '..', user.avatar)))
+                        if (fs.existsSync(path.join(__dirname, '..', user.avatar)))
                         {
                             fs.unlinkSync(path.join(__dirname, '..', user.avatar));
                         }
@@ -150,13 +175,13 @@ module.exports.update=async function(req, res)
 
 
                     // this is saving the path of the uploaded file into the avatar field in the user
-                    user.avatar=User.avatar_path+'/'+req.file.filename;
+                    user.avatar = User.avatar_path + '/' + req.file.filename;
                 }
                 user.save();
                 return res.redirect('back');
             });
-        }   
-        catch(error)
+        }
+        catch (error)
         {
             req.flash('error', err);
             return res.redirect('back');

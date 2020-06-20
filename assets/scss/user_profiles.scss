@@ -18,5 +18,15 @@ body
                 height:100%;
             }
         }
+        #add-friend
+        {
+            background-color: #7952b3;
+            border-color: #7952b3;
+            &:hover
+            {
+                background-color: #6339a1;
+                border-color: #6339a1;
+            }
+        }
     }
 }

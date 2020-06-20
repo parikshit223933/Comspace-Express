@@ -67,12 +67,11 @@
         
         
                     <%}else{%>
-                    <p>
-                        <%=locals.profile_user.name%>
-                    </p>
-                    <p>
-                        <%=locals.profile_user.email%>
-                    </p>
+                        <%if(!locals.are_friends){%>
+                            <a type="button" href="/users/profile/<%=profile_user._id%>/toggle_friend" id="add-friend" class="btn btn-primary text-white">Add Friend</a>
+                        <%}else{%>
+                            <a type="button" href="/users/profile/<%=profile_user._id%>/toggle_friend" class="btn btn-danger text-white">Remove Friend</a>
+                        <%}%>
         
                     <%}%>
             </div>
