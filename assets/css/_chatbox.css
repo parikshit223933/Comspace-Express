@@ -1,0 +1,40 @@
+#chatbox {
+  position: fixed;
+  box-sizing: border-box;
+  right: 0.5%;
+  bottom: 0.5%;
+  border: 1px solid #9b9b9b;
+  height: 50%;
+  width: 25vw;
+  border-radius: 20px 20px 0px 0px;
+}
+
+#chatbox #is_online {
+  border-radius: 50%;
+  background-color: #7cc412;
+  width: 9px;
+  height: 9px;
+}
+
+#chatbox .messages-container {
+  height: 67%;
+  overflow-y: scroll;
+}
+
+#chatbox .messages-container #message-list {
+  list-style: none;
+  width: auto;
+}
+
+#chatbox .new-message {
+  height: 13%;
+  width: auto;
+}
+
+#chatbox .new-message form {
+  width: 100%;
+}
+
+#chatbox .new-message form div:nth-child(1) {
+  width: 18vw;
+}

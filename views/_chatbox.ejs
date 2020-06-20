@@ -1,0 +1,32 @@
+<link rel="stylesheet" type="text/css" href="css/_chatbox.css">
+<%if(locals.user){%>
+<div id="chatbox" class="container bg-light">
+    <div class="row text-dark">
+        <div class="col-10 pt-3 text-capitalize">
+            <%=locals.user.name.toString()%>
+        </div>
+        <div class="col-1 pt-4">
+            <div id="is_online"></div>
+        </div>
+    </div>
+    <hr>
+    <div class="row messages-container">
+        <ul id="message-list">
+            <li>New message</li>
+            <li>New message</li>
+            
+        </ul>
+    </div>
+    <div class="row new-message bg-white">
+        <form class="form-inline ml-2 mr-2 d-flex justify-content-between align-items-center">
+            <div class="form-group">
+                <input type="text" class="form-control-plaintext" id="staticEmail2" placeholder="New message">
+            </div>
+            <div class="form-group">
+                <a type="submit" class="btn btn-light"><i class="fas fa-paper-plane"></i></a>
+            </div>
+        </form>
+    </div>
+
+</div>
+<%}%>

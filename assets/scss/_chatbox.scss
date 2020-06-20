@@ -1,0 +1,37 @@
+#chatbox {
+	position: fixed;
+	box-sizing: border-box;
+	right: 0.5%;
+	bottom: 0.5%;
+	border: 1px solid rgb(155, 155, 155);
+	height: 50%;
+	width: 25vw;
+	border-radius: 20px 20px 0px 0px;
+	#is_online {
+		border-radius: 50%;
+		background-color: rgb(124, 196, 18);
+		width: 9px;
+		height: 9px;
+	}
+	.messages-container {
+		height: 67%;
+		overflow-y: scroll;
+		#message-list {
+            list-style: none;
+			width: auto;
+		}
+    }
+    .new-message
+    {
+        height:13%;
+        width:auto;
+        form
+        {
+            width:100%;
+            div:nth-child(1)
+            {
+                width:18vw;
+            }
+        }
+    }
+}
