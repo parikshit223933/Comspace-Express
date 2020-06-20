@@ -19,13 +19,31 @@
                 <% itr=0; for(post of locals.posts){ %>
             <%- include('_post') -%>
             <%itr++;}%>
-            </div>
+    </div>
 
-        </section>
+    </section>
 
-        <section id="user-friends" class="col-sm-3 mt-4 pb-3 pt-3">
+    <section id="user-friends" class="col-sm-3 mt-4 pb-3 pt-3">
+        <div>
             <h4>
                 Friends
+            </h4>
+            <ul class="list-group">
+                <%if(locals.friends.length==0){%>
+                    <h6>Friends list is empty.</h6>
+                <%}%>
+                <%for(fr of locals.friends){%>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <a href="/users/profile/<%=fr.friend_id%>"><%=fr.friend_name%></a>
+                    <span class="badge badge-primary badge-pill">14</span>
+                </li>
+                <%}%>
+            </ul>
+        </div>
+        <hr>
+        <div>
+            <h4>
+                All Users
             </h4>
 
             <ul class="list-group">
@@ -36,7 +54,7 @@
                 </li>
                 <%}%>
             </ul>
-
+        </div>
         
         </section>
     </div>
