@@ -29,7 +29,6 @@ module.exports.profile = (req, res) =>
             {
                 are_friends = true;
             }
-            console.log('*************', are_friends, '*********************');
             /* console.log(req.user);
             console.log(req.user._id, '********', req.params.id, '*******') */
             var options =
