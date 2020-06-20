@@ -22,6 +22,27 @@
 {
     section:nth-child(3)
     {
+        $sub-container-height:47%;
+        height:95vh;
+        overflow:hidden;
+        #friends-container
+        {
+            height:$sub-container-height;
+            overflow:scroll;
+            &::-webkit-scrollbar
+            {
+                display: none;;
+            }
+        }
+        #all-users-container
+        {
+            height:$sub-container-height;
+            overflow:scroll;
+            &::-webkit-scrollbar
+            {
+                display: none;;
+            }
+        }
         a
         {
             &:hover
@@ -47,6 +68,7 @@
                 display: none;
             }
         }
+
     }
 }
 .action-buttons

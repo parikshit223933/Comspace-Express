@@ -15,6 +15,29 @@
   box-shadow: 0px 0px 2px 1px #f0f0f0;
 }
 
+.row section:nth-child(3) {
+  height: 95vh;
+  overflow: hidden;
+}
+
+.row section:nth-child(3) #friends-container {
+  height: 47%;
+  overflow: scroll;
+}
+
+.row section:nth-child(3) #friends-container::-webkit-scrollbar {
+  display: none;
+}
+
+.row section:nth-child(3) #all-users-container {
+  height: 47%;
+  overflow: scroll;
+}
+
+.row section:nth-child(3) #all-users-container::-webkit-scrollbar {
+  display: none;
+}
+
 .row section:nth-child(3) a:hover {
   text-decoration: none;
   color: red;
