@@ -5,11 +5,11 @@
         <section class="col-sm-4 pb-2 pt-2">
             <!-- profile picture -->
             <div id="profile-picture" class="ml-auto mr-auto mt-2 mb-2">
-                <img src="<%=user.avatar%>" alt="<%=user.name%>">
+                <img src="<%=profile_user.avatar%>" alt="<%=profile_user.name%>">
             </div>
             <!-- name -->
             <div class="text-center">
-                <h3><%=user.name%></h3>
+                <h3><%=profile_user.name.charAt(0).toUpperCase() + profile_user.name.slice(1)%></h3>
             </div>
 
             <!-- update credentials -->
