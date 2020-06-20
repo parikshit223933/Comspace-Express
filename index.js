@@ -15,7 +15,12 @@ const mongoStore=require('connect-mongo')(session);
 const sassMiddleware=require('node-sass-middleware');
 const custom_middleware=require('./config/middleware');
 /* google-passport authentication */
-const passport_google=require('./config/passport-google-OAuth2-Strategy')
+const passport_google=require('./config/passport-google-OAuth2-Strategy');
+/* socket.io for messaging. Setting up the chat server to be used with socket.io */
+const chatServer=require('http').Server(app);
+const chatSockets=require('./config/chat_sockets').chatSockets(chatServer);
+chatServer.listen(5000);
+console.log('Chat Server is listening on port 5000')
 
 app.use(sassMiddleware(
     {
