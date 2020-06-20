@@ -4,6 +4,7 @@
     "express-session": "registry:dt/express-session#0.0.0+20161119044246",
     "mongoose": "registry:dt/mongoose#4.7.0+20170322192047",
     "nodemailer": "registry:dt/nodemailer#1.3.2+20160811111312",
-    "passport": "registry:dt/passport#0.3.0+20170207191958"
+    "passport": "registry:dt/passport#0.3.0+20170207191958",
+    "socket.io": "registry:dt/socket.io#1.4.4+20170313110830"
   }
 }
