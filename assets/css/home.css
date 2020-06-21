@@ -43,9 +43,13 @@
   color: red;
 }
 
+.row section:nth-child(3) .badge {
+  color: white;
+}
+
 .row section:nth-child(3) .badge:hover {
-  background-color: red;
-  cursor: default;
+  color: white;
+  cursor: pointer;
 }
 
 .row section:nth-child(3) ul {

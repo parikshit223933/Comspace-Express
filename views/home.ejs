@@ -42,7 +42,7 @@
                             <a href="/users/profile/<%=fr.friend_id%>"><%=fr.friend_name%></a>
                         </div>
                     </div>
-                    <span class="badge badge-primary badge-pill">14</span>
+                    <a class="badge badge-primary"><i class="fas fa-comment"></i></a>
                 </li>
                 <%}%>
             </ul>
@@ -59,7 +59,6 @@
                 <%for(u of locals.all_users){%>
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                     <a href="/users/profile/<%=u.id%>"><%=u.name%></a>
-                    <span class="badge badge-primary badge-pill">14</span>
                 </li>
                 <%}%>
             </ul>

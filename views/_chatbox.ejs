@@ -1,14 +1,11 @@
 <link rel="stylesheet" type="text/css" href="css/_chatbox.css">
 <%if(locals.user){%>
-<div id="user-chatbox" class="container bg-light">
-    <div class="row text-dark">
-        <div class="col-2 pt-3">
-            <img src="<%=locals.user.avatar%>" style="height:30px; width:30px;">
-        </div>
-        <div class="col-8 pt-3 text-capitalize pl-0">
+<div id="user-chatbox" class="container bg-light d-none">
+    <div class="row text-dark d-flex justify-content-between align-items-center">
+        <div class="col-8 pt-3 text-capitalize">
             <%=locals.user.name%>
         </div>
-        <div class="col-1 pt-4">
+        <div class="col-1 pt-4 mr-3">
             <div id="is_online"></div>
         </div>
     </div>

@@ -53,10 +53,11 @@
         }
         .badge
         {
+            color:white;
             &:hover
             {
-                background-color:red;
-                cursor:default;
+                color:white;
+                cursor: pointer;
             }
         }
         ul
