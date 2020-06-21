@@ -1,3 +1,2 @@
 /node_modules
-/config/nodemailer.js
-.env
+/config/environment.js

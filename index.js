@@ -1,4 +1,5 @@
 const express=require('express');
+const env=require('./config/environment');
 const cookieParser=require('cookie-parser');
 const app=express();
 const port=8000;
@@ -19,13 +20,15 @@ const passport_google=require('./config/passport-google-OAuth2-Strategy');
 /* socket.io for messaging. Setting up the chat server to be used with socket.io */
 const chatServer=require('http').Server(app);
 const chatSockets=require('./config/chat_sockets').chatSockets(chatServer);
+const path=require('path');
+
 chatServer.listen(5000);
 console.log('Chat Server is listening on port 5000')
 
 app.use(sassMiddleware(
     {
-        src:"./assets/scss",
-        dest:'./assets/css',
+        src:path.join(__dirname, env.asset_path, '/scss'),
+        dest:path.join(__dirname, env.asset_path, '/css'),
         debug:true,
         outputStyle:"expanded",
         prefix:'/css',
@@ -38,7 +41,7 @@ app.use(session(
         name:'comspace_express',
         /* ToDo: Change the secret before deployment in production mode. */
         /* whenever encryption happens, there is a key to encode and decode it that key is secret. */
-        secret:'somethingsomething',
+        secret:env.session_cookie_key,
         saveUninitialized:false,
         resave:false,
         cookie:{
@@ -68,7 +71,7 @@ app.use(express.urlencoded({extended:true}));
 app.use(cookieParser());
 app.use(expressLayouts);
 app.use('/', routes);
-app.use(express.static('./assets'));
+app.use(express.static(env.asset_path));
 /* make the uploads path available to the browser */
 app.use('/uploads', express.static(__dirname+'/uploads'));
 
