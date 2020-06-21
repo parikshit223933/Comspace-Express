@@ -66,9 +66,14 @@
         </div>    
     </section>
     <%-include('_chatbox')-%>
-    </div>
+        </div>
 </div>
 <script src="/js/home_posts.js"></script>
 <script src="/js/home.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
-<script src="/js/chat_engine.js" ></script>
+<script src="/js/chat_engine.js"></script>
+<%if(locals.user){%>
+<script>
+    new ChatEngine('user-chatbox', "<%=locals.user._id %>")
+</script>
+<%}%>
