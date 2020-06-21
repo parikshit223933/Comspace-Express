@@ -7,6 +7,12 @@ module.exports.chatSockets=function(chatServer)
         socket.on('disconnect', function()
         {
             console.log('Socket Disconnected!');
-        })
+        });
+        socket.on('join_room', function(data)
+        {
+            console.log('joining request recieved!', data);
+            socket.join(data.chatroom);
+            io.in(data.chatroom).emit('user_joined', data);
+        });
     })
 }
