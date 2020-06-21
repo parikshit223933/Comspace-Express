@@ -54,7 +54,10 @@ class ChatEngine
             newMessage.append($('<span>', {
                 html:data.message
             }));
-            newMessage.append($('<sub>', {
+            /* break line */
+            newMessage.append($('<br>'));
+
+            newMessage.append($('<small>', {
                 html:data.user_email
             }));
             newMessage.addClass(message_type);
