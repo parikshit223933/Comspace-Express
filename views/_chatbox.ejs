@@ -3,7 +3,7 @@
 <div id="user-chatbox" class="container bg-light">
     <div class="row text-dark">
         <div class="col-10 pt-3 text-capitalize">
-            <%=locals.user.name.toString()%>
+            <%=locals.user.name%>
         </div>
         <div class="col-1 pt-4">
             <div id="is_online"></div>
@@ -12,18 +12,16 @@
     <hr>
     <div class="row messages-container">
         <ul id="message-list">
-            <li>New message</li>
-            <li>New message</li>
             
         </ul>
     </div>
     <div class="row new-message bg-white">
         <form class="form-inline ml-2 mr-2 d-flex justify-content-between align-items-center">
             <div class="form-group">
-                <input type="text" class="form-control-plaintext" id="staticEmail2" placeholder="New message">
+                <input type="text" class="form-control-plaintext" id="message" placeholder="New message">
             </div>
             <div class="form-group">
-                <a type="submit" class="btn btn-light"><i class="fas fa-paper-plane"></i></a>
+                <button type="submit" id="send-message" class="btn btn-light"><i class="fas fa-paper-plane"></i></button>
             </div>
         </form>
     </div>
