@@ -5,7 +5,6 @@ const rev = require('gulp-rev');
 const uglify = require('gulp-uglify-es').default;
 const imagemin = require('gulp-imagemin');
 const del = require('del');
-const path=require('path');
 
 gulp.task('css', function (done)
 {
@@ -15,10 +14,10 @@ gulp.task('css', function (done)
         .pipe(sass())
         .pipe(cssnano())
         .pipe(gulp.dest('./assets/css'))
-    gulp.src('./assets/**/*.css')
+    gulp.src('./assets/**/*.css', {base:'assets'})/* https://lifesaver.codes/answer/merge-true-not-working-for-rev-manifest() */
         .pipe(rev())
         .pipe(gulp.dest('./public/assets'))
-        .pipe(rev.manifest({
+        .pipe(rev.manifest('manifest.json', {
             cwd: 'public',
             merge: true
         }))
@@ -35,7 +34,7 @@ gulp.task('js', function (done)
         .pipe(uglify())
         .pipe(rev())
         .pipe(gulp.dest('./public/assets'))
-        .pipe(rev.manifest({
+        .pipe(rev.manifest('manifest.json', {
             cwd: 'public',
             merge: true
         }))
@@ -52,7 +51,7 @@ gulp.task('images', function (done)
         .pipe(imagemin())
         .pipe(rev())
         .pipe(gulp.dest('./public/assets'))
-        .pipe(rev.manifest({
+        .pipe(rev.manifest('manifest.json', {
             cwd: 'public',
             merge: true
         }))
@@ -65,7 +64,7 @@ gulp.task('images', function (done)
 //this task will clear the public/assets directory
 gulp.task('clean:assets', function (done)
 {
-    del.sync('./public/assets/**');
+    del.sync('./public/**');
     done();
 });
 
