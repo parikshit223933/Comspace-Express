@@ -6,24 +6,34 @@ const uglify = require('gulp-uglify-es').default;
 const imagemin = require('gulp-imagemin');
 const del = require('del');
 
+gulp.task('scss_to_css', function (done)
+{
+    console.log('converting scss to css');
+    gulp.src('./assets/scss/**/*.scss')
+        .pipe(sass())
+        .pipe(cssnano())
+        .pipe(gulp.dest('./assets/css'));
+    done()
+})
+
+
+
 gulp.task('css', function (done)
 {
     console.log('Minifying CSS...');
 
-    gulp.src('./assets/scss/**/*.scss')
-        .pipe(sass())
-        .pipe(cssnano())
-        .pipe(gulp.dest('./assets/css'))
-    gulp.src('./assets/**/*.css', {base:'assets'})/* https://lifesaver.codes/answer/merge-true-not-working-for-rev-manifest() */
+    gulp.src('./assets/**/*.css')/* https://lifesaver.codes/answer/merge-true-not-working-for-rev-manifest() */
         .pipe(rev())
         .pipe(gulp.dest('./public/assets'))
-        .pipe(rev.manifest('manifest.json', {
-            cwd: 'public',
-            merge: true
+        .pipe(rev.manifest({
+            base: 'public',
+            merge: 'true'
         }))
-        .pipe(gulp.dest('./public/assets'));
+        .pipe(gulp.dest('./public'));
     done()
 });
+
+
 
 
 gulp.task('js', function (done)
@@ -34,14 +44,16 @@ gulp.task('js', function (done)
         .pipe(uglify())
         .pipe(rev())
         .pipe(gulp.dest('./public/assets'))
-        .pipe(rev.manifest('manifest.json', {
-            cwd: 'public',
-            merge: true
+        .pipe(rev.manifest({
+            base: 'public',
+            merge: 'true'
         }))
-        .pipe(gulp.dest('./public/assets'));
+        .pipe(gulp.dest('./public'));
 
     done();
 })
+
+
 
 gulp.task('images', function (done)
 {
@@ -51,20 +63,23 @@ gulp.task('images', function (done)
         .pipe(imagemin())
         .pipe(rev())
         .pipe(gulp.dest('./public/assets'))
-        .pipe(rev.manifest('manifest.json', {
-            cwd: 'public',
-            merge: true
+        .pipe(rev.manifest({
+            base: 'public',
+            merge: 'true'
         }))
-        .pipe(gulp.dest('./public/assets'));
+        .pipe(gulp.dest('./public'));
 
     done();
 });
 
 
+
 //this task will clear the public/assets directory
 gulp.task('clean:assets', function (done)
 {
-    del.sync('./public/**');
+    del.sync('./public/css');
+    del.sync('./public/js');
+    del.sync('./public/images');
     done();
 });
 

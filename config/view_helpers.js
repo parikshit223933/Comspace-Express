@@ -11,7 +11,7 @@ module.exports=(app)=>
         {
             return filePath;
         }
-        let manifest= JSON.parse(fs.readFileSync(path.join(__dirname, '../public/assets/manifest.json')));
+        let manifest= JSON.parse(fs.readFileSync(path.join(__dirname, '../rev-manifest.json')));
         return '/'+manifest[filePath];
     }
 }
