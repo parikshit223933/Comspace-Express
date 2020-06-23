@@ -55,7 +55,7 @@ const production =
     },
     google_client_id: process.env.COMSPACE_GOOGLE_CLIENT_ID,
     google_client_Secret: process.env.COMSPACE_GOOGLE_CLIENT_SECRET,
-    google_callbackURL: process.env.COMSPACE_GOOGLE_CALLBACK_URL,
+    google_callbackURL: 'http://www.comspaceexpress.codes/users/auth/google/callback',
     jwt_secret_or_key:process.env.COMSPACE_JWT_SECRET_OR_KEY,
     morgan:{
         mode:'combined',
